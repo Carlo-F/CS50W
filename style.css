@@ -1,0 +1,36 @@
+body, html, main {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body #search_div, html #search_div, main #search_div {
+  margin-top: 35%;
+}
+body #search_div #query_box, html #search_div #query_box, main #search_div #query_box {
+  border-radius: 24px;
+}
+body #search_div #search_button, body #search_div #lucky_button, html #search_div #search_button, html #search_div #lucky_button, main #search_div #search_button, main #search_div #lucky_button {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  display: block;
+  margin: 5% auto 0 auto;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  width: 146px;
+  max-width: 45%;
+}
+body #advanced_search_button_div, html #advanced_search_button_div, main #advanced_search_button_div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/*# sourceMappingURL=style.css.map */

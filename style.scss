@@ -1,0 +1,46 @@
+$light_gray: #f8f9fa;
+$light_black: #3c4043;
+
+body,html,main {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    header {
+        
+    }
+    #search_div {
+        margin-top: 35%;
+
+        #query_box {
+            border-radius: 24px;
+        }
+
+         #search_button, #lucky_button {
+            background-color: $light_gray;
+            border: 1px solid $light_gray;
+            border-radius: 4px;
+            color: $light_black;
+            font-family: arial,sans-serif;
+            font-size: 14px;
+            display: block;
+            margin: 5% auto 0 auto;
+            padding: 0 16px;
+            line-height: 27px;
+            height: 36px;
+            min-width: 54px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            width: 146px;
+            max-width: 45%;
+        }
+    }
+
+    #advanced_search_button_div {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+
+}
