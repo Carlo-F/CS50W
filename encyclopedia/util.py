@@ -33,8 +33,18 @@ def get_entry(title):
     entry exists, the function returns None.
     """
     try:
-        f = default_storage.open(f"entries/{title}.md")
+        f = default_storage.open(f"entries/{title.lower()}.md")
         markdowner = Markdown()
         return markdowner.convert(f.read().decode("utf-8"))
     except FileNotFoundError:
         return None
+
+def search_entry(query):
+    """
+    Returns array of entries with query as substring.
+    """
+    results = []
+    for entry in list_entries():
+        if query in entry:
+            results.append(entry)
+    return results

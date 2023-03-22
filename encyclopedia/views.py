@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
 from . import util
 
 
@@ -18,5 +17,21 @@ def entry(request, title):
     
     return render(request, page_url, {
         "title": title.capitalize(),
+        "entry": entry
+    })
+
+def search(request):
+    # 1. get the q parameter
+    query = request.GET.get('q', '')
+    # 2. try to get entry with title=q
+    entry = util.get_entry(query)
+    # 3. if not found, get list of entries with q as substring, then redirect to search results page
+    if entry is None:
+        return render(request, "encyclopedia/search.html", {
+            "entries": util.search_entry(query)
+        })
+    # 4. display search results page
+    return render(request, "encyclopedia/entry.html", {
+        "title": entry.title,
         "entry": entry
     })
