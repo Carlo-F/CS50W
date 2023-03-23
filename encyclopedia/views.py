@@ -1,7 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
+from django import forms
 from . import util
 
+class NewEntryForm(forms.Form):
+    entry_title = forms.CharField(label="Entry title")
+    entry_content = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}))
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -35,3 +40,23 @@ def search(request):
         "title": entry.title,
         "entry": entry
     })
+
+def new_entry(request):
+    if request.method == "POST":
+        form = NewEntryForm(request.POST)
+
+        if form.is_valid():
+            entry_title = form.cleaned_data['entry_title']
+            entry_content = form.cleaned_data['entry_content']
+            #check if entry already exists
+            if(util.get_entry(entry_title)):
+                #if it exists, show error
+                return HttpResponse('Sorry, this entry already exists. Go back and try a different Entry Title.')
+            #else save entry
+            util.save_entry(entry_title,entry_content)
+            #finally redirect user to the new entry page
+            return HttpResponseRedirect(reverse("entry", args=[entry_title]))
+    else:
+        return render(request, "encyclopedia/new_entry.html",{
+            "form": NewEntryForm()
+        })
