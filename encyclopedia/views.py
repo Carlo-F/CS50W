@@ -1,3 +1,4 @@
+import random
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -54,9 +55,16 @@ def new_entry(request):
                 return HttpResponse('Sorry, this entry already exists. Go back and try a different Entry Title.')
             #else save entry
             util.save_entry(entry_title,entry_content)
-            #finally redirect user to the new entry page
+            #and finally redirect user to the new entry page
             return HttpResponseRedirect(reverse("entry", args=[entry_title]))
     else:
         return render(request, "encyclopedia/new_entry.html",{
             "form": NewEntryForm()
         })
+
+def random_entry (request):
+    entries = util.list_entries()
+
+    random_entry = random.choice(entries)
+
+    return HttpResponseRedirect(reverse("entry", args=[random_entry]))
