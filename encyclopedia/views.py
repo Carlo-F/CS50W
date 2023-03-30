@@ -9,6 +9,10 @@ class NewEntryForm(forms.Form):
     entry_title = forms.CharField(label="Entry title")
     entry_content = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}))
 
+class NewEditForm(forms.Form):
+    entry_title = forms.CharField(label="Entry title",widget=forms.HiddenInput())
+    entry_content = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}))
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -38,7 +42,7 @@ def search(request):
         })
     # 4. display search results page
     return render(request, "encyclopedia/entry.html", {
-        "title": entry.title,
+        "title": query,
         "entry": entry
     })
 
@@ -68,3 +72,32 @@ def random_entry (request):
     random_entry = random.choice(entries)
 
     return HttpResponseRedirect(reverse("entry", args=[random_entry]))
+
+def edit_entry (request, title):
+    if request.method == "POST":
+        form = NewEditForm(request.POST)
+
+        if form.is_valid():
+            entry_title = form.cleaned_data['entry_title']
+            entry_content = form.cleaned_data['entry_content']
+
+            util.save_entry(entry_title,entry_content)
+
+            return HttpResponseRedirect(reverse("entry", args=[entry_title]))
+
+    else:
+        entry = util.get_entry(title,False)
+        page_url = "encyclopedia/404.html"
+
+        if entry is not None:
+            page_url = "encyclopedia/edit_entry.html"
+
+        initial_dict = {
+            "entry_title" : title,
+            "entry_content": entry
+        }
+        
+        return render(request, "encyclopedia/edit_entry.html",{
+            "title": title.capitalize(),
+            "form": NewEditForm(request.POST or None, initial = initial_dict)
+        })

@@ -27,15 +27,18 @@ def save_entry(title, content):
     default_storage.save(filename, ContentFile(content))
 
 
-def get_entry(title):
+def get_entry(title, getMarkdown = True):
     """
     Retrieves an encyclopedia entry by its title. If no such
     entry exists, the function returns None.
     """
     try:
         f = default_storage.open(f"entries/{title}.md")
-        markdowner = Markdown()
-        return markdowner.convert(f.read().decode("utf-8"))
+        if(getMarkdown):
+            markdowner = Markdown()
+            return markdowner.convert(f.read().decode("utf-8"))
+        else:
+            return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
 
