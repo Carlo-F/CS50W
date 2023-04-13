@@ -4,11 +4,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User,Listing,Bid
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    active_listings = Listing.objects.filter(is_active=True)
+
+    for listing in active_listings:
+        #current price by default is equal to the starting_bid
+        listing.price = listing.starting_bid
+
+        #if there are any bids on the listing, current price is equal to the higher bid
+        bids = listing.bids.order_by('-amount')
+        if bids:
+            listing.price = listing.bids.order_by('-amount')[0].amount
+
+    return render(request, "auctions/index.html", {
+        "active_listings": active_listings
+    })
 
 
 def login_view(request):
