@@ -58,7 +58,7 @@ def new_listing(request):
                 category=listing_category,
                 owner=request.user
             )
-            
+
             new_listing.save()
 
             return HttpResponseRedirect(reverse("index"))
@@ -67,6 +67,32 @@ def new_listing(request):
             "form": NewListingForm()
         })
 
+def categories(request):
+    active_listings = Listing.objects.filter(is_active=True)
+    categories = []
+
+    for listing in active_listings:
+        if listing.category is not None and not listing.category in categories:
+            categories.append(listing.category)
+
+    return render(request, "auctions/categories.html", {"categories": categories})
+
+def category(request, category):
+    active_listings = Listing.objects.filter(category=category)
+
+    for listing in active_listings:
+        #current price by default is equal to the starting_bid
+        listing.price = listing.starting_bid
+
+        #if there are any bids on the listing, current price is equal to the higher bid
+        bids = listing.bids.order_by('-amount')
+        if bids:
+            listing.price = listing.bids.order_by('-amount')[0].amount
+
+    return render(request, "auctions/index.html", {
+        "category": category,
+        "active_listings": active_listings
+    })
 
 def login_view(request):
     if request.method == "POST":
