@@ -16,6 +16,10 @@ class Listing(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+class Watchlist(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watchlist_owner")
+    listings = models.ManyToManyField(Listing, blank=True, related_name="watchlists")
     
 class Comment(models.Model):
     text = models.TextField()

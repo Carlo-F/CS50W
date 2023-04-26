@@ -1,0 +1,69 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{listing.title}}</h2>
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-12 col-lg-6">
+                        <img class="img-fluid" src={{listing.image_url|default_if_none:'http://via.placeholder.com/640x360'}}>
+                    </div>
+                    <div class="col-12 col-lg-6 p-4">
+                        <div class="mb-1 text-body-secondary">
+                            <strong>title:</strong> {{listing.title}}
+                        </div>
+                        <div class="mb-1 text-body-secondary">
+                            <strong>category:</strong> {{ listing.category|default_if_none:"undefined" }}
+                        </div>
+                        <div class="mb-1 text-body-secondary"><strong>price:</strong> ${{ listing.price }}</div>
+                        <div class="card-text mb-auto"><strong>description:</strong> {{listing.description}}</div>
+                        <div class="mb-1 mt-2 text-body-secondary">
+                            {% if user.is_authenticated %}
+                                {% if listing not in watchlist.listings.all %}
+                                    <a href="{% url 'watch' listing.id %}" class="btn btn-success">Watchlist</a>
+                                {% else %}
+                                    <a href="{% url 'unwatch' listing.id %}" class="btn btn-warning">Watchlist</a>
+                                {% endif %}
+                                {% if user == listing.owner %}
+                                <button type="button" class="btn btn-danger">Close auction</button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h3>Bids</h3>
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-12 p-4">
+                        <div class="mb-1"><strong>current number of bids on this item:</strong> {{ listing.bids.count }}</div>
+                        {% if user.is_authenticated %}
+                        <div class="mb-1 mt-2 text-body-secondary">
+                            {% if winning_bid is not None and winning_bid.author == user %}
+                            <div class="mb-1"><strong>your bid is the current bid.</strong></div>
+                            {% endif %}
+                            <form action="{% url 'new_listing' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="bid">place a bid. Bids cannot be lower than current price (${{ listing.price }})</label>
+                                    <input type="number" class="form-control" id="bid" min="{{ listing.price }}" placeholder="bid" value="{{listing.price}}">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Place bid</button>
+                                </div>
+                            </form> 
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h3>Comments</h3>
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-12 p-4">
+                        TODO
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

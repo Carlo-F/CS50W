@@ -1,12 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
 
-from .models import User,Listing
+from .models import User,Listing,Watchlist
+from .utils import get_listing_price
 
 class NewListingForm(forms.Form):
 
@@ -26,13 +27,8 @@ def index(request):
     active_listings = Listing.objects.filter(is_active=True)
 
     for listing in active_listings:
-        #current price by default is equal to the starting_bid
-        listing.price = listing.starting_bid
-
-        #if there are any bids on the listing, current price is equal to the higher bid
-        bids = listing.bids.order_by('-amount')
-        if bids:
-            listing.price = listing.bids.order_by('-amount')[0].amount
+        #get highest bid or starting_bid
+        listing.price = get_listing_price(listing)
 
     return render(request, "auctions/index.html", {
         "active_listings": active_listings
@@ -67,6 +63,46 @@ def new_listing(request):
             "form": NewListingForm()
         })
 
+@login_required
+def watch(request, listing_id):
+    #watch the listing
+    listing = Listing.objects.get(pk=listing_id)
+
+    watchlist = Watchlist.objects.get_or_create(owner=request.user)
+
+    watchlist[0].listings.add(listing)
+
+    return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
+@login_required
+def unwatch(request, listing_id):
+    #unwatch the listing
+    listing = Listing.objects.get(pk=listing_id)
+
+    watchlist = Watchlist.objects.get(owner=request.user)
+
+    watchlist.listings.remove(listing)
+
+    return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
+
+def listing(request, listing_id):
+    listing = get_object_or_404(Listing, pk=listing_id)
+    user_watchlist = Watchlist.objects.get(owner=request.user)
+
+    #get highest bid or starting_bid
+    listing.price = get_listing_price(listing)
+    winning_bid = None
+    bids = listing.bids.order_by('-amount')
+    if bids:
+        winning_bid = bids[0]
+    
+    return render(request, "auctions/listing.html",{
+        "listing": listing,
+        "winning_bid": winning_bid,
+        "watchlist": user_watchlist,
+    })
+
 def categories(request):
     active_listings = Listing.objects.filter(is_active=True)
     categories = []
@@ -81,13 +117,8 @@ def category(request, category):
     active_listings = Listing.objects.filter(category=category)
 
     for listing in active_listings:
-        #current price by default is equal to the starting_bid
-        listing.price = listing.starting_bid
-
-        #if there are any bids on the listing, current price is equal to the higher bid
-        bids = listing.bids.order_by('-amount')
-        if bids:
-            listing.price = listing.bids.order_by('-amount')[0].amount
+        #get highest bid or starting_bid
+        listing.price = get_listing_price(listing)
 
     return render(request, "auctions/index.html", {
         "category": category,
