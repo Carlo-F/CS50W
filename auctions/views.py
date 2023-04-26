@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
 
-from .models import User,Listing,Watchlist
+from .models import User,Listing,Watchlist,Comment
 from .utils import get_listing_price
 
 class NewListingForm(forms.Form):
@@ -85,6 +85,13 @@ def unwatch(request, listing_id):
 
     return HttpResponseRedirect(reverse("listing", args=[listing_id]))
 
+@login_required
+def close_auction(request, listing_id):
+
+    Listing.objects.filter(pk=listing_id,owner=request.user).update(is_active=False)
+
+    return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
 
 def listing(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
@@ -102,6 +109,24 @@ def listing(request, listing_id):
         "winning_bid": winning_bid,
         "watchlist": user_watchlist,
     })
+
+@login_required
+def add_comment(request, listing_id):
+    if request.method == "POST":
+        comment = request.POST['comment']
+
+        new_comment = Comment(
+            text=comment,
+            author=request.user,
+            listing=Listing.objects.get(pk=listing_id)
+        )
+
+        new_comment.save()
+
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
+    else:
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
 
 def categories(request):
     active_listings = Listing.objects.filter(is_active=True)
