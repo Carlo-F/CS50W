@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django import forms
 
-from .models import User,Listing,Watchlist,Comment
+from .models import User,Listing,Watchlist,Comment,Bid
 from .utils import get_listing_price
 
 class NewListingForm(forms.Form):
@@ -122,6 +122,28 @@ def add_comment(request, listing_id):
         )
 
         new_comment.save()
+
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
+    else:
+        return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+
+@login_required
+def place_bid(request, listing_id):
+    if request.method == "POST":
+        bid = int(request.POST['bid'])
+        listing=Listing.objects.get(pk=listing_id)
+        #validate bid
+        if(bid != listing.starting_bid and bid <= get_listing_price(listing)):
+            return HttpResponse('Sorry, your bid must be greater than any other bids. Go back and try again.')
+
+        new_bid = Bid(
+            amount=bid,
+            author=request.user,
+            listing=listing
+        )
+
+        new_bid.save()
 
         return HttpResponseRedirect(reverse("listing", args=[listing_id]))
 

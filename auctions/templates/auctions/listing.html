@@ -41,14 +41,14 @@
                             {% if user.is_authenticated %}
                             <div class="mb-1 mt-2 text-body-secondary">
                                 {% if winning_bid is not None and winning_bid.author == user %}
-                                <div class="mb-1"><strong>your bid is the current bid.</strong></div>
+                                <div class="mb-1"><strong>your bid is the current winning bid.</strong></div>
                                 {% endif %}
                                 
-                                <form action="{% url 'new_listing' %}" method="post">
+                                <form action="{% url 'place_bid' listing.id %}" method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label for="bid">place a bid. Bids cannot be lower than current price (${{ listing.price }})</label>
-                                        <input type="number" class="form-control" id="bid" min="{{ listing.price }}" placeholder="bid" value="{{listing.price}}">
+                                        <label for="bid">place a bid. Bids must be greater than current price (${{ listing.price }})</label>
+                                        <input type="number" class="form-control" id="bid" name="bid" min="{{ listing.price }}" placeholder="bid" value="{{listing.price}}">
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary">Place bid</button>
