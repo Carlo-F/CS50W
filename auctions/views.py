@@ -149,6 +149,14 @@ def place_bid(request, listing_id):
 
     else:
         return HttpResponseRedirect(reverse("listing", args=[listing_id]))
+    
+@login_required
+def watchlist(request):
+    watchlist = Watchlist.objects.get(owner=request.user)
+
+    return render(request, "auctions/watchlist.html", {
+        "watchlist": watchlist,
+    })
 
 def categories(request):
     active_listings = Listing.objects.filter(is_active=True)
