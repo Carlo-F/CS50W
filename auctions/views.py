@@ -19,8 +19,8 @@ class NewListingForm(forms.Form):
     listing_title = forms.CharField(label="title")
     listing_description = forms.CharField(widget=forms.Textarea(attrs={"rows":"5"}))
     listing_starting_bid = forms.IntegerField(min_value=1, required=True, label="starting bid")
-    listing_image_url = forms.CharField(label="image url")
-    listing_category = forms.CharField(label="category")
+    listing_image_url = forms.CharField(label="image url", required=False)
+    listing_category = forms.CharField(label="category", required=False)
 
 
 def index(request):
@@ -163,7 +163,7 @@ def categories(request):
     categories = []
 
     for listing in active_listings:
-        if listing.category is not None and not listing.category in categories:
+        if listing.category and not listing.category in categories:
             categories.append(listing.category)
 
     return render(request, "auctions/categories.html", {"categories": categories})
@@ -175,7 +175,7 @@ def category(request, category):
         #get highest bid or starting_bid
         listing.price = get_listing_price(listing)
 
-    return render(request, "auctions/index.html", {
+    return render(request, "auctions/category.html", {
         "category": category,
         "active_listings": active_listings
     })
