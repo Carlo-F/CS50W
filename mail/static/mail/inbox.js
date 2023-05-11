@@ -31,9 +31,44 @@ function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#mailbox-content').innerHTML = '';
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  document.querySelector('#mailbox-title').innerHTML = mailbox.charAt(0).toUpperCase() + mailbox.slice(1);
+
+  fetch(`/emails/${mailbox}`)
+  .then(response => response.json())
+  .then(result => {
+    result.forEach(email => {
+      const box = document.createElement('div');
+      box.classList.add('card', 'mb-2', 'p-4');
+
+      if (email.read) {
+        box.classList.add('bg-light');
+      }
+      
+      const sender = document.createElement('h5');
+      sender.innerHTML = email.sender
+      sender.classList.add('card-title','font-weight-bold');
+
+      box.append(sender);
+
+      const timestamp = document.createElement('h6');
+      timestamp.innerHTML = email.timestamp
+      timestamp.classList.add('card-subtitle','mb-2','text-body-secondary');
+
+      box.append(timestamp);
+
+      const body = document.createElement('p');
+      body.innerHTML = email.body;
+      body.classList.add('card-text','pl-2');
+
+      box.append(body);
+
+      document.querySelector('#mailbox-content').append(box);
+    })
+  });
+
 }
 
 function send_email(form, event) {
@@ -51,10 +86,7 @@ function send_email(form, event) {
   })
   .then(response => response.json())
   .then(result => {
-    // Print result
-    console.log(result);
-
-    //then load sent mailbox
+    //load sent mailbox
     load_mailbox('sent');
   });
 }
