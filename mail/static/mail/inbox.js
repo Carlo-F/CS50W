@@ -14,10 +14,75 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
+async function view_email() {
+  // Show email view and hide other views
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#email-content').innerHTML = '';
+  document.querySelector('#email-view').style.display = 'block';
+
+  let email;
+
+  await fetch(`/emails/${this.dataset.id}`)
+    .then(response => response.json())
+    .then(result => {
+      email = result
+    })
+  
+  const box = document.createElement('div');
+  box.classList.add('p-4');
+
+  const sender = document.createElement('h5');
+  sender.innerHTML = `<strong>From:</strong> ${email.sender}`;
+  sender.classList.add('mb-2');
+
+  box.append(sender);
+      
+  const recipients = document.createElement('h5');
+  recipients.innerHTML = `<strong>To:</strong> ${email.recipients.join(', ')}`;
+  recipients.classList.add('mb-2');
+
+  box.append(recipients);
+      
+  const subject = document.createElement('h5');
+  subject.innerHTML = `<strong>Subject:</strong> ${email.subject}`;
+  subject.classList.add('mb-2');
+
+  box.append(subject);
+
+  const timestamp = document.createElement('h5');
+  timestamp.innerHTML = `<strong>Timestamp:</strong> ${email.timestamp}`;
+  timestamp.classList.add('mb-2');
+
+  box.append(timestamp);
+      
+  const hr = document.createElement('hr');
+  box.append(hr);
+
+  const body = document.createElement('p');
+  body.innerHTML = email.body;
+  body.classList.add('card-text','pl-2');
+
+  box.append(body);
+  
+  document.querySelector('#email-content').append(box);
+  
+  if (!email.read) {
+    fetch(`/emails/${this.dataset.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        read: true
+      })
+    })
+  }
+
+}
+
 function compose_email() {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#email-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
 
   // Clear out composition fields
@@ -30,6 +95,7 @@ function load_mailbox(mailbox) {
   
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
+  document.querySelector('#email-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#mailbox-content').innerHTML = '';
 
@@ -41,7 +107,9 @@ function load_mailbox(mailbox) {
   .then(result => {
     result.forEach(email => {
       const box = document.createElement('div');
-      box.classList.add('card', 'mb-2', 'p-4');
+      box.classList.add('card', 'mb-2', 'p-4', 'email');
+      box.dataset.id=email.id
+      box.addEventListener('click', view_email);
 
       if (email.read) {
         box.classList.add('bg-light');
