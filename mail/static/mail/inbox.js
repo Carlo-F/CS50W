@@ -14,7 +14,21 @@ document.addEventListener('DOMContentLoaded', function() {
   load_mailbox('inbox');
 });
 
-async function view_email() {
+async function archive_email(email_id, archive = true) {
+  console.log(email_id, archive);
+  
+  await fetch(`/emails/${email_id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        archived: archive
+      })
+  })
+
+  load_mailbox('inbox')
+  
+}
+
+async function view_email(email_id, mailbox) {
   // Show email view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
@@ -23,7 +37,7 @@ async function view_email() {
 
   let email;
 
-  await fetch(`/emails/${this.dataset.id}`)
+  await fetch(`/emails/${email_id}`)
     .then(response => response.json())
     .then(result => {
       email = result
@@ -64,11 +78,21 @@ async function view_email() {
   body.classList.add('card-text','pl-2');
 
   box.append(body);
+
+  if (mailbox != 'sent') {
+    const button = document.createElement('button');
+    button.innerHTML = email.archived ? 'Unarchive' : 'Archive';
+    button.classList.add('btn', 'btn-outline-secondary');
+
+    button.addEventListener('click', () => archive_email(email_id, !email.archived));
+    
+    box.append(button);
+  }
   
   document.querySelector('#email-content').append(box);
   
   if (!email.read) {
-    fetch(`/emails/${this.dataset.id}`, {
+    fetch(`/emails/${email_id}`, {
       method: 'PUT',
       body: JSON.stringify({
         read: true
@@ -108,8 +132,7 @@ function load_mailbox(mailbox) {
     result.forEach(email => {
       const box = document.createElement('div');
       box.classList.add('card', 'mb-2', 'p-4', 'email');
-      box.dataset.id=email.id
-      box.addEventListener('click', view_email);
+      box.addEventListener('click', () => view_email(email.id, mailbox));
 
       if (email.read) {
         box.classList.add('bg-light');
