@@ -1,5 +1,25 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+    {% if posts %}
+    <h2>All Posts</h2>
+    {% for post in posts %}
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-12 p-4">
+                        <strong class="d-inline-block mb-2 text-primary">
+                            {{ post.user.username }}
+                        </strong>
+                        <h3 class="mb-0">{{post.content}}</h3>
+                        <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
+                        <p class="card-text mb-auto"><i class="bi bi-heart-fill"></i> {{post.likes}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% else %}
+        <h2>Nothing to show at the moment..</h2>
+    {% endif %}
 {% endblock %}
