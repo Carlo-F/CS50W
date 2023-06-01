@@ -1,8 +1,12 @@
+import json
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.http import JsonResponse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import User,Post
 
@@ -13,6 +17,43 @@ def index(request):
     return render(request, "network/index.html", {
         "posts": posts
     })
+
+def profile(request,username):
+    try:
+        profile_user = User.objects.get(username=username)
+        posts = Post.objects.filter(user=profile_user).order_by('-timestamp')
+
+       # return JsonResponse({"user":user.username,"posts":len(posts)})
+        
+        return render(request, "network/profile.html", {
+                "profile_user": profile_user,
+                "posts":posts
+            })
+    except User.DoesNotExist:
+        return JsonResponse({
+            "error": f"User with id {username} does not exist."
+        }, status=400)
+
+@csrf_exempt
+@login_required
+def new_post(request):
+
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    if len(data.get('content')) == 0:
+        return JsonResponse({"error": "post content is required"}, status=400)
+
+    new_post = Post(
+        content=data.get('content'),
+        user=request.user
+    )
+
+    new_post.save()
+
+    return JsonResponse({"message": "New Post saved successfully."}, status=201)
 
 
 def login_view(request):
