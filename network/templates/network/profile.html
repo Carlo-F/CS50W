@@ -2,6 +2,14 @@
 
 {% block body %}
     <h1>{{profile_user}}</h1>
+    <p><i class="bi bi-people"></i> <b>{{followers.count}}</b> followers - <b>{{follows.count|default:0}}</b> follows</p>
+    {% if profile_user != user %}
+        {% if profile_user.logged_user_is_following %}
+            <button id="unfollow" data-user-id={{profile_user.id}} class="btn btn-danger mt-2">Unfollow</button>
+        {% else %}
+            <button id="follow" data-user-id={{profile_user.id}} class="btn btn-success mt-2">Follow</button>
+        {% endif %}
+    {% endif %}
     <hr>
     {% if posts %}
     <h2>All Posts</h2>

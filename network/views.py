@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User,Post
+from .models import User,Post,Follow
 
 
 def index(request):
@@ -22,17 +22,56 @@ def profile(request,username):
     try:
         profile_user = User.objects.get(username=username)
         posts = Post.objects.filter(user=profile_user).order_by('-timestamp')
-
-       # return JsonResponse({"user":user.username,"posts":len(posts)})
+        followers = profile_user.followers.all()
+        following = profile_user.following.all()
+        profile_user.logged_user_is_following = profile_user.followers.filter(user=request.user)
         
         return render(request, "network/profile.html", {
                 "profile_user": profile_user,
-                "posts":posts
+                "posts":posts,
+                "followers":followers,
+                "following":following
             })
     except User.DoesNotExist:
         return JsonResponse({
             "error": f"User with id {username} does not exist."
         }, status=400)
+
+@csrf_exempt
+@login_required
+def follow(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    user_id = data.get('user_id')
+
+    if len(user_id) == 0:
+        return JsonResponse({"error": "user_id is required"}, status=400)
+    elif(user_id == request.user.id):
+        return JsonResponse({"error": "You cannot follow yourself!"}, status=400)
+    
+    Follow.objects.create(user_id=request.user.id, following_user_id=user_id)
+    
+    return JsonResponse({"message": "Success"}, status=201)
+
+@csrf_exempt
+@login_required
+def unfollow(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    user_id = data.get('user_id')
+
+    if len(user_id) == 0:
+        return JsonResponse({"error": "user_id is required"}, status=400)
+    
+    Follow.objects.filter(user_id=request.user.id, following_user_id=user_id).delete()
+    
+    return JsonResponse({"message": "Success"}, status=201)
 
 @csrf_exempt
 @login_required
