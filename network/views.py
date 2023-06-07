@@ -23,14 +23,14 @@ def profile(request,username):
         profile_user = User.objects.get(username=username)
         posts = Post.objects.filter(user=profile_user).order_by('-timestamp')
         followers = profile_user.followers.all()
-        following = profile_user.following.all()
+        follows = profile_user.following.all()
         profile_user.logged_user_is_following = profile_user.followers.filter(user=request.user)
         
         return render(request, "network/profile.html", {
                 "profile_user": profile_user,
                 "posts":posts,
                 "followers":followers,
-                "following":following
+                "follows":follows
             })
     except User.DoesNotExist:
         return JsonResponse({
