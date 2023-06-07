@@ -18,6 +18,18 @@ def index(request):
         "posts": posts
     })
 
+@login_required
+def following(request):
+
+    follows = request.user.following.all()
+
+    posts = Post.objects.filter(user__id__in=follows.values_list('following_user_id')).order_by('-timestamp')
+
+    return render(request, "network/following.html", {
+        "posts": posts
+    })
+
+@login_required
 def profile(request,username):
     try:
         profile_user = User.objects.get(username=username)
