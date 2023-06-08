@@ -1,39 +1,51 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    {% if posts %}
-    <h2>All Posts</h2>
-    {% if user.is_authenticated %}
-        <div class="row mb-2">
-            <div class="col-12">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col-12 p-4">
-                        <h3 class="mb-0">New Post</h3>
-                        <form id="new-post-form">
-                            <textarea class="form-control" name="content" id="content" placeholder=""></textarea>
-                            <button type="submit" class="btn btn-primary mt-2">Post</button>
-                        </form>
+    {% if page_obj.object_list %}
+        <h2>All Posts</h2>
+        {% if user.is_authenticated %}
+            <div class="row mb-2">
+                <div class="col-12">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-12 p-4">
+                            <h3 class="mb-0">New Post</h3>
+                            <form id="new-post-form">
+                                <textarea class="form-control" name="content" id="content" placeholder=""></textarea>
+                                <button type="submit" class="btn btn-primary mt-2">Post</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-    {% for post in posts %}
-        <div class="row mb-2">
-            <div class="col-12">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col-12 p-4">
-                        <a href="{% url 'profile' post.user %}" class="d-inline-block mb-2 text-primary">
-                            {{ post.user }}
-                        </a>
-                        <h3 class="mb-0">{{post.content}}</h3>
-                        <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
-                        <p class="card-text mb-auto"><i class="bi bi-heart-fill"></i> {{post.likes}}</p>
+        {% endif %}
+        {% for post in page_obj.object_list %}
+            <div class="row mb-2">
+                <div class="col-12">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-12 p-4">
+                            <a href="{% url 'profile' post.user %}" class="d-inline-block mb-2 text-primary">
+                                {{ post.user }}
+                            </a>
+                            <h3 class="mb-0">{{post.content}}</h3>
+                            <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
+                            <p class="card-text mb-auto"><i class="bi bi-heart-fill"></i> {{post.likes}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}"><span aria-hidden="true">&laquo;</span> Previous</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next <span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
     {% else %}
         <h2>Nothing to show at the moment..</h2>
     {% endif %}
