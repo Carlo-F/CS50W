@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
       unfollowBtn.addEventListener('click', () => unfollow(unfollowBtn));
     }
   
+  const likeButtons = document.querySelectorAll('.like-button');
+
+  likeButtons.forEach(button => {
+    button.addEventListener('click', () => likePost(button));
+    button.querySelector('.likes').innerHTML = button.dataset.postLikes
+  })
 
 });
 
@@ -60,7 +66,7 @@ function follow(btn) {
 }
 
 function unfollow(btn) {
-    fetch('/unfollow', {
+  fetch('/unfollow', {
     method: 'POST',
     body: JSON.stringify({
         user_id: btn.dataset.userId
@@ -72,6 +78,38 @@ function unfollow(btn) {
         alert(result.error)
       } else {
         location.reload()
+    }
+  });
+}
+
+function likePost(btn) {
+  let postId = btn.dataset.postId
+  let likes = btn.dataset.postLikes
+  let liked = btn.dataset.postLiked == 'True'
+  let path = liked ? '/dislike' : '/like'
+
+  fetch(path, {
+    method: 'POST',
+    body: JSON.stringify({
+        post_id: postId
+    })
+  })
+  .then(response => response.json())
+  .then(result => {
+      if (result.error) {
+        alert(result.error)
+      } else {
+        if (liked) {
+          btn.dataset.postLikes = parseInt(likes) - 1;
+          btn.dataset.postLiked = 'False'
+          btn.querySelector('.likes').innerHTML = parseInt(likes) - 1;
+          btn.querySelector('i').classList.replace('bi-heart-fill', 'bi-heart');
+        } else {
+          btn.dataset.postLikes = parseInt(likes) + 1;
+          btn.dataset.postLiked = 'True'
+          btn.querySelector('.likes').innerHTML = parseInt(likes) + 1;
+          btn.querySelector('i').classList.replace('bi-heart', 'bi-heart-fill');
+        }
     }
   });
 }

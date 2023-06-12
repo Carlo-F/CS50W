@@ -9,11 +9,16 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
-from .models import User,Post,Follow
+from .models import User,Post,Follow,Like
 
 
 def index(request):
     posts = Post.objects.all().order_by('-timestamp')
+
+    for post in posts:
+        post.likes = post.likers.all()
+        post.logged_user_likes_post = post.likes.filter(user=request.user).exists()
+
     paginator = Paginator(posts, 10)
 
     page_number = request.GET.get('page')
@@ -30,6 +35,11 @@ def following(request):
 
     posts = Post.objects.filter(user__id__in=follows.values_list('following_user_id')).order_by('-timestamp')
 
+    for post in posts:
+        post.likes = post.likers.all()
+        post.logged_user_likes_post = post.likes.filter(user=request.user).exists()
+
+
     paginator = Paginator(posts, 10)
 
     page_number = request.GET.get('page')
@@ -44,6 +54,11 @@ def profile(request,username):
     try:
         profile_user = User.objects.get(username=username)
         posts = Post.objects.filter(user=profile_user).order_by('-timestamp')
+
+        for post in posts:
+            post.likes = post.likers.all()
+            post.logged_user_likes_post = post.likes.filter(user=request.user).exists()
+
         followers = profile_user.followers.all()
         follows = profile_user.following.all()
         profile_user.logged_user_is_following = profile_user.followers.filter(user=request.user)
@@ -97,6 +112,40 @@ def unfollow(request):
         return JsonResponse({"error": "user_id is required"}, status=400)
     
     Follow.objects.filter(user_id=request.user.id, following_user_id=user_id).delete()
+    
+    return JsonResponse({"message": "Success"}, status=201)
+
+@csrf_exempt
+@login_required
+def like(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    post_id = data.get('post_id')
+
+    if len(post_id) == 0:
+        return JsonResponse({"error": "post_id is required"}, status=400)
+    
+    Like.objects.create(user_id=request.user.id, liked_post_id=post_id)
+    
+    return JsonResponse({"message": "Success"}, status=201)
+
+@csrf_exempt
+@login_required
+def dislike(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    post_id = data.get('post_id')
+
+    if len(post_id) == 0:
+        return JsonResponse({"error": "post_id is required"}, status=400)
+    
+    Like.objects.filter(user_id=request.user.id, liked_post_id=post_id).delete()
     
     return JsonResponse({"message": "Success"}, status=201)
 
