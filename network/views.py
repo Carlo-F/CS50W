@@ -151,6 +151,21 @@ def dislike(request):
 
 @csrf_exempt
 @login_required
+def edit_post(request,post_id):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    if len(data.get('content')) == 0:
+        return JsonResponse({"error": "post content is required"}, status=400)
+    
+    Post.objects.filter(id=post_id,user=request.user).update(content=data.get('content'))
+
+    return JsonResponse({"message": "Post saved successfully."}, status=201)
+
+@csrf_exempt
+@login_required
 def new_post(request):
 
     if request.method != "POST":

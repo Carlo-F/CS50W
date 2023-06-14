@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
     button.querySelector('.likes').innerHTML = button.dataset.postLikes
   })
 
+  const editButtons = document.querySelectorAll('.edit-button');
+
+  editButtons.forEach(button => {
+    button.addEventListener('click', () => editPost(button));
+  })
+
 });
 
 function save_post(form, event) {
@@ -112,4 +118,44 @@ function likePost(btn) {
         }
     }
   });
+}
+
+function editPost(btn) {
+  let postContainer = btn.parentElement
+  let postContent = postContainer.querySelector('.post-content');
+  let postTextarea = postContainer.querySelector('.post-textarea');
+  let postSaveButton = postContainer.querySelector('.save-button');
+  let postId = postSaveButton.dataset.postId;
+
+  btn.classList.toggle('d-none');
+  postContent.classList.toggle('d-none');
+  postTextarea.classList.toggle('d-none');
+  postSaveButton.classList.toggle('d-none');
+
+  postSaveButton.addEventListener('click', () => {
+
+    fetch(`/posts/${postId}/edit_post`, {
+      method: 'POST',
+      body: JSON.stringify({
+          content: postTextarea.value
+      })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.error) {
+          alert(result.error)
+        } else {
+
+          postContent.innerHTML = postTextarea.value;
+
+          btn.classList.remove('d-none');
+          postContent.classList.remove('d-none');
+          postTextarea.classList.add('d-none');
+          postSaveButton.classList.add('d-none');
+
+      }
+    });
+
+  })
+
 }

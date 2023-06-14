@@ -11,7 +11,14 @@
                             <a href="{% url 'profile' post.user %}" class="d-inline-block mb-2 text-primary">
                                 {{ post.user }}
                             </a>
-                            <h3 class="mb-0">{{post.content}}</h3>
+                            <div class="post-container">
+                                <h3 class="mb-0 post-content">{{post.content}}</h3>
+                                {% if post.user == user %}
+                                <button class="btn btn-link px-0 edit-button">Edit post</button>
+                                <textarea class="form-control post-textarea d-none">{{post.content}}</textarea>
+                                <button data-post-id={{post.id}} class="btn btn-success save-button d-none">Save</button>
+                                {% endif %}
+                            </div>
                             <div class="mb-1 text-body-secondary">{{ post.timestamp }}</div>
                             <p class="card-text mb-auto">
                                 <button 
