@@ -12,3 +12,6 @@ Design an eBay-like e-commerce auction site that will allow users to post auctio
 
 ## Project 3 - Mail
 Design a front-end for an email client that makes API calls to send and receive emails.
+
+## Project 4 - Network
+Design a Twitter-like social network website for making posts and following users.
