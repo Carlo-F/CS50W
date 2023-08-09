@@ -1,0 +1,18 @@
+<div class="align-items-center p-2 my-2 text-white bg-light rounded shadow-sm">
+  <div class="lh-1">
+    <form id="smart-search" class="d-flex" role="search" onsubmit="return false;">
+      <input class="form-control me-2" name="query" type="search" placeholder="Search..." aria-label="Search" required>
+    </form>
+    <div id="search-suggestion" class="py-2 d-none">
+      <ul class="my-2">
+        <!-- suggestions here -->
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- suggestion template -->
+<template id="suggestion">
+  <li class="my-2">
+    <a id="suggestion-link" href="#"></a>
+  </li>
+</template>
