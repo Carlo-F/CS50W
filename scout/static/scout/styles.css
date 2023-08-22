@@ -1,9 +1,27 @@
+ :root {
+  --lupetti-color: darkorange;
+  --esploratori-color: darkgreen;
+  --rover-color: royalblue;
+ }
+ 
  .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
         -webkit-user-select: none;
         -moz-user-select: none;
         user-select: none;
+      }
+  
+      .bd-placeholder-img .l {
+        fill: var(--lupetti-color);
+      }
+
+      .bd-placeholder-img .e {
+        fill: var(--esploratori-color);
+      }
+
+      .bd-placeholder-img .r {
+        fill: var(--rover-color);
       }
 
       @media (min-width: 768px) {

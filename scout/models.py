@@ -51,7 +51,6 @@ class Activity(models.Model):
     method = models.TextField(default=None)
     game_mode = models.CharField(max_length=1, choices=GAME_MODES, default="T")
     is_suitable_for_disabled = models.BooleanField(default=0)
-    # add more boolean tags ?
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

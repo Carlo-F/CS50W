@@ -1,4 +1,4 @@
-## SCOUT WEB APP | CS50W CAPSTONE PROJECT
+## LET'S SCOUT! | CS50W CAPSTONE PROJECT
 
 ### Introduzione
 **Nel mondo dello scoutismo, gli educatori sprecano un sacco di tempo per creare attivita' educative da proporre agli scout piu' giovani.**
@@ -7,23 +7,23 @@ E, poiche' non e' semplice creare da zero sempre nuove attivita', che siano adat
 
 Se invece esistesse una piattaforma web unificata che raccoglie le schede dettagliate che descrivono in modo standardizzato le attivita' create dagli educatori scout, si potrebbe facilitare questo processo ripetitivo di ideazione/ricerca/creazione, fornendo agli educatori scout accesso alle informazioni di cui hanno bisogno, quando ne hanno bisogno.
 
-Partendo da questa reale esigenza, ho creato questo progetto, che ho chiamato SCOUT WEB APP. SCOUT WEB APP è quindi una piattaforma web per la creazione, condivisione e ricerca di schede informative dettagliate per la creazione di attività scout.
+Partendo da questa reale esigenza, ho creato questo progetto, che ho chiamato **LET'S SCOUT!**. **LET'S SCOUT!** è quindi una piattaforma web per la creazione, condivisione e ricerca di schede informative dettagliate per la creazione di attività scout.
 
 Le attività scout sono... (Mirella scrive questo paragrafo).
 
-Ogni scheda di attivita' creata su SCOUT WEB APP, sara' standardizzata e conterra' tutte le informazioni necessarie all'educatore per riprodurre questa attività con i suoi scout, compresa la fascia d'eta' degli scout adatta, i requisiti materiali, le caratteristiche e gli obiettivi educativi che questa attvita' si prefigge di raggiungere. 
+Ogni scheda di attivita' creata su **LET'S SCOUT!**, sara' standardizzata e conterra' tutte le informazioni necessarie all'educatore per riprodurre questa attività con i suoi scout, compresa la fascia d'eta' degli scout adatta, i requisiti materiali, le caratteristiche e gli obiettivi educativi che questa attvita' si prefigge di raggiungere. 
 
-Il progetto SCOUT WEB APP è stato ispirato dalla necessità dell'Associazione di Scoutismo Italiano di avere una raccolta unica, uniforme e persistente nel tempo, delle schede di attivita' che al momento non esiste. Gli educatori al momento non hanno un luogo unico dove ricercare ispirazione per le attività scout e devono quindi improvvisare cercando online o parlando tra di loro ogni volta. La piattaforma SCOUT WEB APP, una volta terminato il corso CS50W, verrà realmente implementata, in accordo con l'associazione dello scoutismo italiano, per essere utilizzata da tutte le sezioni italiane.
+Il progetto **LET'S SCOUT!** è stato ispirato dalla necessità dell'Associazione di Scoutismo Italiano di avere una raccolta unica, uniforme e persistente nel tempo, delle schede di attivita' che al momento non esiste. Gli educatori al momento non hanno un luogo unico dove ricercare ispirazione per le attività scout e devono quindi improvvisare cercando online o parlando tra di loro ogni volta. La piattaforma **LET'S SCOUT!**, una volta terminato il corso CS50W, verrà realmente implementata, in accordo con l'associazione dello scoutismo italiano, per essere utilizzata da tutte le sezioni italiane.
 
 ### Distinctiveness and Complexity
 
 #### Come questo progetto si distingue dagli altri del corso: distinctiveness
-Questo progetto si distingue dagli altri sviluppati durante il corso in quanto non è un e-commerce, ne un social network, ne nient'altro di simile gia' fatto. E' piuttosto una tipologia di progetto differente: una piattaforma web di creazione, condivisione e ricerca di una specifica tipologia di informazione, per rispondere ad una specifica esigenza informativa di conoscenza. Volendo quindi associare una tipologia specifica a SCOUT WEB APP, possiamo dire che questo progetto rientra nella famiglia delle piattaforme web di tipo knowledge-sharing, in cui gli utenti can create, share, organize, access and store le informazioni di cui hanno bisogno loro e altri utenti come loro.
+Questo progetto si distingue dagli altri sviluppati durante il corso in quanto non è un e-commerce, ne un social network, ne nient'altro di simile gia' fatto. E' piuttosto una piattaforma di tipo knoledge-sharing, in cui gli utenti can create, share, organize, access and store le informazioni di cui hanno bisogno, sia loro che altri utenti come loro. **LET'S SCOUT!** e' pertanto una piattaforma web di creazione, condivisione e ricerca di una specifica tipologia di informazione, per rispondere ad una specifica esigenza informativa di conoscenza.
 
-#### In cosa quest progetto e' piu complesso degli altri del corso: complexity
-Ho aumentato la complessita' di questo progetto, riprendendo alcune funzionalita' presentate durante il corso, e procedendo quindi ad espanderle e a renderle piu' complesse. Ad esempio, la creazione di una scheda attivita' in questo progetto, richiede molte piu' informazioni della creazione di un post nel progetto Network e anche piu' informazioni di una scheda prodotto del progetto Commerce. Questo ha implicato piu' campi da gestire sia nel modello, sia nel database, sia nel form nel frontend dell'applicativo.
+#### In cosa questo progetto e' piu complesso degli altri del corso: complexity
+Per aumentare la complessita' di questo progetto rispetto agli altri progetti portati a termine durante il corso, ho ripreso alcune funzionalita' presenti negli altri progetti, e ho proceduto quindi ad arricchirle, espanderle e a renderle piu' complesse. Ad esempio, c'e' maggiore complessita' nella funzionalita' di ricerca delle informazioni. Durante il corso le informazioni potevano essere ricercate sostanzialmente in due modi: consultando delle pagine-elenco come "latest", "following", "categories" (riferimento a progetti Commerce e Network) oppure con una ricerca semplificata con parametro in query string (riferimento a progetto Wiki). In questo progetto ho voluto implementare queste funzionalita' ma le ho anche rese piu' complesse: ho aggiunto una nuova tipologia di ricerca, **la ricerca per etichette** e ho reso la ricerca testuale piu' complessa implementando una funzionalita' che restituisce i risultati immediatamente durante la digitazione dell'utente tramite interrogazione di API.
 
-Un altro esempio di maggiore complessita' riguarda la funzionalita' di ricerca delle informazioni. Durante il corso le informazioni potevano essere ricercate sostanzialmente in due modi: consultando delle pagine-elenco come "latest", "following", "categories" (riferimento a progetti Commerce e Network) oppure con una ricerca semplificata con parametro in query string (riferimento a progetto Wiki). In questo progetto ho voluto implementare queste funzionalita' ma le ho anche rese piu' complesse con l'aggiunta di una ricerca per etichette (tags) e di una ricerca testuale con restituzione in tempo reale dei risultati tramite interrogazione di API.
+Un altro esempio riguarda la creazione di una scheda attivita' in questo progetto, il modello di questa entita' richiede piu' informazioni della creazione di un post nel progetto Network e anche piu' informazioni di una scheda prodotto del progetto Commerce. Questo ha implicato piu' campi da gestire sia nel modello, sia nel database, sia nel form nel frontend dell'applicativo aumentando la complessita' generale.
 
 
 ### Funzionalità
