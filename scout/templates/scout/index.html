@@ -4,15 +4,16 @@
     <div class="my-3 p-3 bg-body rounded shadow-sm">
       <h2 class="border-bottom pb-2 mb-0">Latest</h2>
       <div class="container">
-        <!-- render activities dinamically -->
-        {% include "scout/activity-card.html" %}
+        {% for activity in activities.object_list %}
+          {% include "scout/activity-card.html" %}
+        {% endfor %}
       </div>
 
     </div>
 
   <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h2 class="border-bottom pb-2 mb-0">Popular</h2>
-    <!-- render popular dinamically -->
+    <!-- TODO: render popular dinamically -->
     {% include "scout/activity-card-small.html" %}
   </div>
 {% endblock %}
