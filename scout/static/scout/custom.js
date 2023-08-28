@@ -3,21 +3,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //searchsuggestion
-let products = results = [
-  { 'nome': 'risultato1', 'slug': 'risultato-1' },
-  {'nome': 'risultato2', 'slug': 'risultato-2'},
-]
-// fetch("/products/getProductsSuggestions", {
-//     method: "get",
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//     },
-// })
-// .then((response) => response.json())
-// .then((responseData) => {
-//     products = responseData['result']
-// });
+let products = results = []
+fetch("/activities", {
+    method: "get",
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+})
+.then((response) => response.json())
+.then((responseData) => {
+    products = responseData['result']
+});
 
 const searchInput = document.querySelector("#smart-search>input[name='query']")
 const searchSuggestion = document.querySelector("#search-suggestion")
@@ -29,8 +26,8 @@ const SHOW_SUGGESTIONS = () => {
         results.forEach(result => {
             const suggestion = template.content.cloneNode(true)
             let link = suggestion.querySelector("#suggestion-link")
-            link.setAttribute('href', `/${result.slug}`)
-            link.innerText = result.nome
+            link.setAttribute('href', `/activity/${result.id}`)
+            link.innerText = result.title
             suggestionsList.appendChild(suggestion)
         })
         searchSuggestion.classList.remove("d-none");
@@ -41,7 +38,7 @@ const SHOW_SUGGESTIONS = () => {
 
 searchInput.addEventListener('input', (e) => {
     if (e.target.value.length > 3) {
-        results = products.filter(product => product.nome.toLowerCase().indexOf(e.target.value.trim().toLowerCase()) !== -1)
+        results = products.filter(product => product.title.toLowerCase().indexOf(e.target.value.trim().toLowerCase()) !== -1)
     } else {  
         results = []
     }

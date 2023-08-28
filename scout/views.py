@@ -81,3 +81,19 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "scout/register.html")
+    
+# API route for search activities while typing
+@csrf_exempt
+def activities(request):
+
+    activities = Activity.objects.all()
+
+    search_options = []
+
+    for activity in activities:
+        search_options.append({'id':activity.id, 'title':activity.title})
+
+    return JsonResponse({
+        "message": "Activities retrieved successfully.",
+        "result": search_options
+        }, status=200)
