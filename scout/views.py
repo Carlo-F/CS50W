@@ -30,6 +30,12 @@ def category(request,category):
     if any(key == category for key, value in Activity.AGE_RANGES):
         activities = Activity.objects.filter(age_range=category).order_by('-timestamp')
 
+        for activity in activities:
+            activity.likes = activity.likers.all()
+            activity.logged_user_likes_post = activity.likes.filter(user=request.user).exists()
+            activity.location_name = dict(Activity.LOCATIONS)[activity.location]
+            activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
+
         paginator = Paginator(activities, 10)
 
         page_number = request.GET.get('page')
