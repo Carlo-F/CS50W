@@ -2,8 +2,8 @@
 <div class="row py-3 border-bottom">
     <div class="col-12 d-flex">
     <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <rect class="{{ activity.age_range|lower}}" width="100%" height="100%" fill="#007bff"/>
-        <text x="50%" y="50%" fill="#ffffff" dy=".3em">{{ activity.age_range}}</text>
+        <rect class="{{ activity.age_range|first|lower}}" width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#ffffff" dy=".3em">{{ activity.age_range|first|upper}}</text>
     </svg>
     <p class="pb-3 mb-0 small">
         <strong class="d-block text-gray-dark">{{ activity.title }}</strong>

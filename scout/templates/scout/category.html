@@ -1,0 +1,17 @@
+{% extends "scout/layout.html" %}
+
+{% block body %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h2 class="border-bottom pb-2 mb-0">{{ category|capfirst }}</h2>
+      <div class="container">
+        {% if activities.object_list %}
+          {% for activity in activities.object_list %}
+              {% include "scout/activity-card.html" %}
+          {% endfor %}
+        {% else %}
+          <p class="p-2">Nessuna attività disponibile per questa categoria.</p>
+        {% endif %}
+      </div>
+
+    </div>
+{% endblock %}

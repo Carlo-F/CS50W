@@ -28,28 +28,28 @@ class Activity(models.Model):
     title = models.CharField(max_length=180)
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="activities")
     AGE_RANGES = [
-        ("L", "Lupetti"),
-        ("E", "Esploratori"),
-        ("R", "Rover"),
+        ("lupetti", "Lupetti"),
+        ("esploratori", "Esploratori"),
+        ("rover", "Rover"),
     ]
     LOCATIONS = [
-        ("ID", "indoor activity"),
-        ("OD", "outdoor activity"),
-        ("OL", "online activity"),
-        ("IP", "in-person activity"),
+        ("indorr", "indoor activity"),
+        ("outdoor", "outdoor activity"),
+        ("online", "online activity"),
+        ("in-person", "in-person activity"),
     ]
     GAME_MODES = [
-        ("T", "TEAM"),
-        ("U", "UNIT"),
-        ("S", "SINGLE")
+        ("team", "Team"),
+        ("unit", "Unit"),
+        ("single", "Single")
     ]
-    age_range = models.CharField(max_length=1, choices=AGE_RANGES, default="L")
-    location = models.CharField(max_length=2, choices=LOCATIONS, default="OD")
+    age_range = models.CharField(max_length=80, choices=AGE_RANGES, default="lupetti")
+    location = models.CharField(max_length=80, choices=LOCATIONS, default="outdoor")
     educational_goals = models.CharField(max_length=180, choices=EducationalGoal.EDUCATIONAL_GOALS)
     duration = models.IntegerField(help_text="Duration of the activity in minutes")
-    required_materials = models.CharField(blank=False, max_length=180, default=None)
+    required_materials = models.CharField(blank=True, max_length=180, default=None)
     method = models.TextField(default=None)
-    game_mode = models.CharField(max_length=1, choices=GAME_MODES, default="T")
+    game_mode = models.CharField(max_length=80, choices=GAME_MODES, default="team")
     is_suitable_for_disabled = models.BooleanField(default=0)
     # add more tags
     timestamp = models.DateTimeField(auto_now_add=True)

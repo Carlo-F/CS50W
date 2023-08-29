@@ -2,8 +2,7 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import JsonResponse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -30,6 +29,22 @@ def index(request):
     return render(request, "scout/index.html", {
         "activities": page_obj
     })
+
+def category(request,category):
+    if any(key == category for key, value in Activity.AGE_RANGES):
+        activities = Activity.objects.filter(age_range=category).order_by('-timestamp')
+
+        paginator = Paginator(activities, 10)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        return render(request, "scout/category.html", {
+            "category": category,
+            "activities": page_obj
+        })
+    else:
+        raise Http404(f"{category} is not a valid input")
 
 def login_view(request):
     if request.method == "POST":
