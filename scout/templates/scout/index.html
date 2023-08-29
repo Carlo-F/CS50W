@@ -4,7 +4,7 @@
     <div class="my-3 p-3 bg-body rounded shadow-sm">
       <h2 class="border-bottom pb-2 mb-0">Latest</h2>
       <div class="container">
-        {% for activity in activities.object_list %}
+        {% for activity in latest_activities %}
           {% include "scout/activity-card.html" %}
         {% endfor %}
       </div>

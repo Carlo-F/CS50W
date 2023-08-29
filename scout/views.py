@@ -14,20 +14,16 @@ from .models import User,Activity,Like
 # Create your views here.
 
 def index(request):
-    activities = Activity.objects.all().order_by('-timestamp')
+    activities = Activity.objects.all().order_by('-timestamp')[:5]
 
     for activity in activities:
         activity.likes = activity.likers.all()
         activity.logged_user_likes_post = activity.likes.filter(user=request.user).exists()
         activity.location_name = dict(Activity.LOCATIONS)[activity.location]
         activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
-    paginator = Paginator(activities, 10)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
 
     return render(request, "scout/index.html", {
-        "activities": page_obj
+        "latest_activities": activities
     })
 
 def category(request,category):
