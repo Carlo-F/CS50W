@@ -2,16 +2,14 @@
   <div class="nav-scroller border-bottom">
     <nav class="nav" aria-label="Secondary navigation">
       <a class="nav-link active" aria-current="page" href="#">Tags:</a>
-      <a class="nav-link" href="#">
-        Outdoor
-        <span class="badge text-bg-light rounded-pill align-text-bottom">27</span>
-      </a>
-      <a class="nav-link" href="#">Indoor</a>
-      <a class="nav-link" href="#">Team</a>
-      <a class="nav-link" href="#">Unit</a>
-      <a class="nav-link" href="#">Single</a>
-      <a class="nav-link" href="#">In-person</a>
-      <a class="nav-link" href="#">Online</a>
+      <a class="nav-link" href="{% url 'tag' tag='outdoor' %}">Outdoor</a>
+      <a class="nav-link" href="{% url 'tag' tag='indoor' %}">Indoor</a>
+      <a class="nav-link" href="{% url 'tag' tag='team' %}">Team</a>
+      <a class="nav-link" href="{% url 'tag' tag='unit' %}">Unit</a>
+      <a class="nav-link" href="{% url 'tag' tag='single' %}">Single</a>
+      <a class="nav-link" href="{% url 'tag' tag='in-person' %}">In-person</a>
+      <a class="nav-link" href="{% url 'tag' tag='online' %}">Online</a>
+      <a class="nav-link" href="{% url 'tag' tag='is_suitable_for_disabled' %}">Suitable for disabled</a>
     </nav>
   </div>
 </div>

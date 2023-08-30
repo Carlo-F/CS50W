@@ -10,10 +10,10 @@
         <a href="#">more info</a>
     </div>
         <div class="tags">
-        <a class="tag" href="#"><i class="bi bi-tag"></i>{{ activity.location_name }}</a>
-        <a class="tag" href="#"><i class="bi bi-tag"></i>{{ activity.game_mode_name }}</a>
+        <a class="tag" href="{% url 'tag' tag=activity.location %}"><i class="bi bi-tag"></i>{{ activity.location_name }}</a>
+        <a class="tag" href="{% url 'tag' tag=activity.game_mode %}"><i class="bi bi-tag"></i>{{ activity.game_mode_name }}</a>
         {% if activity.is_suitable_for_disabled %}
-        <a class="tag" href="#"><i class="bi bi-tag"></i>suitable for disabled</a>
+        <a class="tag" href="{% url 'tag' tag='is_suitable_for_disabled' %}"><i class="bi bi-tag"></i>suitable for disabled</a>
         {% endif %}
     </div>
     </div>

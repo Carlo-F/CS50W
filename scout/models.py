@@ -33,7 +33,7 @@ class Activity(models.Model):
         ("rover", "Rover"),
     ]
     LOCATIONS = [
-        ("indorr", "indoor activity"),
+        ("indoor", "indoor activity"),
         ("outdoor", "outdoor activity"),
         ("online", "online activity"),
         ("in-person", "in-person activity"),

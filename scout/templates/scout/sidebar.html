@@ -38,12 +38,12 @@
     <div class="p-4 mb-3 bg-light rounded shadow-sm">
         <h4 class="fst-italic">Browse by Tags</h4>
         <ol class="list-unstyled mb-0 border-bottom">
-            <li class="mb-2"><a href="#"><i class="bi bi-tag"></i>team</a></li>
-            <li class="mb-2"><a href="#"><i class="bi bi-tag"></i>unit</a></li>
-            <li class="mb-2"><a href="#"><i class="bi bi-tag"></i>single</a></li>
+            <li class="mb-2"><a href="{% url 'tag' tag='team' %}"><i class="bi bi-tag"></i>team</a></li>
+            <li class="mb-2"><a href="{% url 'tag' tag='unit' %}"><i class="bi bi-tag"></i>unit</a></li>
+            <li class="mb-2"><a href="{% url 'tag' tag='single' %}"><i class="bi bi-tag"></i>single</a></li>
         </ol>
         <small class="d-block text-end mt-3">
-            <a href="#">All tags</a>
+            <a href="{% url 'tags' %}">All tags</a>
         </small>
     </div>
 

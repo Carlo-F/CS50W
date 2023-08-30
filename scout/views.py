@@ -26,6 +26,40 @@ def index(request):
         "latest_activities": activities
     })
 
+def tags(request):
+    tags = Activity.LOCATIONS + Activity.GAME_MODES
+    # additional tags
+    tags.extend([("is_suitable_for_disabled", "Suitable for disabled")])
+
+    return render(request, "scout/tags.html",{
+        "tags": tags
+    })
+
+def tag(request,tag):
+    activities = []
+    if any(key == tag for key, value in Activity.LOCATIONS):
+        activities = Activity.objects.filter(location=tag).order_by('-timestamp')
+    elif any(key == tag for key, value in Activity.GAME_MODES):
+        activities = Activity.objects.filter(game_mode=tag).order_by('-timestamp')
+    elif tag == 'is_suitable_for_disabled':
+        activities = Activity.objects.filter(is_suitable_for_disabled=1).order_by('-timestamp')
+
+    for activity in activities:
+        activity.likes = activity.likers.all()
+        activity.logged_user_likes_post = activity.likes.filter(user=request.user).exists()
+        activity.location_name = dict(Activity.LOCATIONS)[activity.location]
+        activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
+
+    paginator = Paginator(activities, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, "scout/tag.html",{
+        "tag": tag,
+        "activities": page_obj
+    })
+
 def category(request,category):
     if any(key == category for key, value in Activity.AGE_RANGES):
         activities = Activity.objects.filter(age_range=category).order_by('-timestamp')
