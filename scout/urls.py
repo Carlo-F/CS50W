@@ -9,6 +9,7 @@ urlpatterns = [
     path("tags", views.tags, name="tags"),
     path("tags/<str:tag>", views.tag, name="tag"),
     path("categories/<str:category>", views.category, name="category"),
+    path("latest", views.latest, name="latest"),
 
     # api
     path("activities", views.activities, name="activities"),

@@ -1,4 +1,5 @@
 {% extends "scout/layout.html" %}
+{% block title %}{{ category|capfirst }}{% endblock %}
 
 {% block body %}
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -12,6 +13,21 @@
           <p class="p-2">Nessuna attività disponibile per questa categoria.</p>
         {% endif %}
       </div>
-
+    </div>
+    <div class="my-3 p-3 bg-body">
+      <div class="container">
+      {% if activities.has_other_pages %}
+      <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              {% if activities.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ activities.previous_page_number }}"><span aria-hidden="true">&laquo;</span> Previous</a></li>
+              {% endif %}
+              {% if activities.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ activities.next_page_number }}">Next <span aria-hidden="true">&raquo;</span></a></li>
+              {% endif %}
+          </ul>
+      </nav>
+      {% endif %}
+      </div>
     </div>
 {% endblock %}

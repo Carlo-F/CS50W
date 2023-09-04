@@ -14,32 +14,32 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                    <a class="nav-link {% if current_page == 'home' %} active {% endif %}" aria-current="page" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Latest</a>
+                    <a class="nav-link {% if current_page == 'latest' %} active {% endif %}" href="{% url 'latest' %}">Latest</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tags' %}">Tags</a>
+                    <a class="nav-link {% if current_page == 'tags' %} active {% endif %}" href="{% url 'tags' %}">Tags</a>
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Favourites</a>
+                        <a class="nav-link" href=" {% if current_page == 'favourites' %} active {% endif %}">Favourites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">New Activity</a>
+                        <a class="nav-link" href=" {% if current_page == 'new activity' %} active {% endif %}">New Activity</a>
                     </li>
                 {% endif %}
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        <a class="nav-link {% if current_page == 'login' %} active {% endif %}" href="{% url 'logout' %}">Log Out</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        <a class="nav-link {% if current_page == 'logout' %} active {% endif %}" href="{% url 'login' %}">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link {% if current_page == 'register' %} active {% endif %}" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
             </ul>

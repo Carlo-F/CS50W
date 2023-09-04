@@ -1,8 +1,12 @@
 {% extends "scout/layout.html" %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-      <h2 class="border-bottom pb-2 mb-0">Latest</h2>
+      <h2>Latest</h2>
+      <small class="d-block text-end border-bottom ">
+          <a href="{% url 'latest' %}">More</a>
+      </small>
       <div class="container">
         {% for activity in latest_activities %}
           {% include "scout/activity-card.html" %}

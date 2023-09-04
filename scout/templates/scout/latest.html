@@ -1,0 +1,29 @@
+{% extends "scout/layout.html" %}
+{% block title %}Latest{% endblock %}
+
+{% block body %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h2 class="border-bottom pb-2 mb-0">Latest activities</h2>
+      <div class="container">
+        {% for activity in latest_activities %}
+          {% include "scout/activity-card.html" %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="my-3 p-3 bg-body">
+      <div class="container">
+      {% if latest_activities.has_other_pages %}
+      <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              {% if latest_activities.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ latest_activities.previous_page_number }}"><span aria-hidden="true">&laquo;</span> Previous</a></li>
+              {% endif %}
+              {% if latest_activities.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ latest_activities.next_page_number }}">Next <span aria-hidden="true">&raquo;</span></a></li>
+              {% endif %}
+          </ul>
+      </nav>
+      {% endif %}
+      </div>
+    </div>
+{% endblock %}

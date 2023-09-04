@@ -10,20 +10,33 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 
 from .models import User,Activity,Like
+from .utils import get_formatted_activities
 
 # Create your views here.
 
 def index(request):
-    activities = Activity.objects.all().order_by('-timestamp')[:5]
+    activities = Activity.objects.all().order_by('-timestamp')[:3]
 
-    for activity in activities:
-        activity.likes = activity.likers.all()
-        activity.logged_user_likes_post = activity.likes.filter(user=request.user).exists()
-        activity.location_name = dict(Activity.LOCATIONS)[activity.location]
-        activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
+    formatted_activities = get_formatted_activities(request.user,activities)
 
     return render(request, "scout/index.html", {
-        "latest_activities": activities
+        "latest_activities": formatted_activities,
+        "current_page": "home"
+    })
+
+def latest(request):
+    activities = Activity.objects.all().order_by('-timestamp')
+
+    formatted_activities = get_formatted_activities(request.user,activities)
+
+    paginator = Paginator(formatted_activities, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "scout/latest.html", {
+        "latest_activities": page_obj,
+        "current_page": "latest"
     })
 
 def tags(request):
@@ -32,7 +45,8 @@ def tags(request):
     tags.extend([("is_suitable_for_disabled", "Suitable for disabled")])
 
     return render(request, "scout/tags.html",{
-        "tags": tags
+        "tags": tags,
+        "current_page": "tags"
     })
 
 def tag(request,tag):
@@ -44,40 +58,34 @@ def tag(request,tag):
     elif tag == 'is_suitable_for_disabled':
         activities = Activity.objects.filter(is_suitable_for_disabled=1).order_by('-timestamp')
 
-    for activity in activities:
-        activity.likes = activity.likers.all()
-        activity.logged_user_likes_post = activity.likes.filter(user=request.user).exists()
-        activity.location_name = dict(Activity.LOCATIONS)[activity.location]
-        activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
+    formatted_activities = get_formatted_activities(request.user,activities)
 
-    paginator = Paginator(activities, 10)
+    paginator = Paginator(formatted_activities, 10)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
     return render(request, "scout/tag.html",{
         "tag": tag,
-        "activities": page_obj
+        "activities": page_obj,
+        "current_page": "tags"
     })
 
 def category(request,category):
     if any(key == category for key, value in Activity.AGE_RANGES):
         activities = Activity.objects.filter(age_range=category).order_by('-timestamp')
 
-        for activity in activities:
-            activity.likes = activity.likers.all()
-            activity.logged_user_likes_post = activity.likes.filter(user=request.user).exists()
-            activity.location_name = dict(Activity.LOCATIONS)[activity.location]
-            activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
+        formatted_activities = get_formatted_activities(request.user,activities)
 
-        paginator = Paginator(activities, 10)
+        paginator = Paginator(formatted_activities, 10)
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
         return render(request, "scout/category.html", {
             "category": category,
-            "activities": page_obj
+            "activities": page_obj,
+            "current_page": "category"
         })
     else:
         raise Http404(f"{category} is not a valid input")
@@ -99,7 +107,9 @@ def login_view(request):
                 "message": "Invalid email and/or password."
             })
     else:
-        return render(request, "scout/login.html")
+        return render(request, "scout/login.html",{
+        "current_page": "login"
+        })
 
 
 def logout_view(request):
@@ -131,7 +141,9 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "scout/register.html")
+        return render(request, "scout/register.html",{
+        "current_page": "register"
+        })
     
 # API route for search activities while typing
 @csrf_exempt
