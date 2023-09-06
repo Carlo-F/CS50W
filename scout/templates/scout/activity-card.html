@@ -18,6 +18,7 @@
         <a class="tag" href="{% url 'tag' tag='is_suitable_for_disabled' %}"><i class="bi bi-tag"></i>suitable for disabled</a>
         {% endif %}
     </div>
+    <p>Likes: {{activity.likes.count}}</p>
     <p class="text-end m-0">
         <a href="#">More info</a>
     </p>

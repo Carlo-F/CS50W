@@ -19,8 +19,18 @@ def index(request):
 
     formatted_activities = get_formatted_activities(request.user,activities)
 
+    likes = Like.objects.all()[:3]
+    popular_activities = []
+
+    for like in likes:
+        if like.liked_activity not in popular_activities:
+            popular_activities.append(like.liked_activity)
+    
+    formatted_popular_activities = get_formatted_activities(request.user,popular_activities)
+
     return render(request, "scout/index.html", {
         "latest_activities": formatted_activities,
+        "popular_activities": formatted_popular_activities,
         "current_page": "home"
     })
 
@@ -37,6 +47,26 @@ def latest(request):
     return render(request, "scout/latest.html", {
         "latest_activities": page_obj,
         "current_page": "latest"
+    })
+
+def popular(request):
+    likes = Like.objects.all()
+    activities = []
+
+    for like in likes:
+        if like.liked_activity not in activities:
+            activities.append(like.liked_activity)
+
+    formatted_activities = get_formatted_activities(request.user,activities)
+
+    paginator = Paginator(formatted_activities, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "scout/popular.html", {
+        "popular_activities": page_obj,
+        "current_page": "popular"
     })
 
 def tags(request):

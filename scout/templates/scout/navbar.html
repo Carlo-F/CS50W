@@ -20,6 +20,9 @@
                     <a class="nav-link {% if current_page == 'latest' %} active {% endif %}" href="{% url 'latest' %}">Latest</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {% if current_page == 'popular' %} active {% endif %}" href="{% url 'popular' %}">Popular</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {% if current_page == 'tags' %} active {% endif %}" href="{% url 'tags' %}">Tags</a>
                 </li>
                 {% if user.is_authenticated %}

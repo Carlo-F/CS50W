@@ -10,6 +10,7 @@ urlpatterns = [
     path("tags/<str:tag>", views.tag, name="tag"),
     path("categories/<str:category>", views.category, name="category"),
     path("latest", views.latest, name="latest"),
+    path("popular", views.popular, name="popular"),
 
     # api
     path("activities", views.activities, name="activities"),
