@@ -10,7 +10,7 @@
       <div class="container">
         {% if activities.object_list %}
           {% for activity in activities.object_list %}
-              {% include "scout/activity-card.html" %}
+              {% include "scout/activity-card-small.html" %}
           {% endfor %}
         {% else %}
           <p class="p-2">Nessuna attività disponibile per questo tag.</p>
