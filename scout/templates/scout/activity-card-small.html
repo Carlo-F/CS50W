@@ -7,7 +7,7 @@
     <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
     <div class="d-flex justify-content-between">
         <strong class="text-gray-dark">{{ activity.title }}</strong>
-        <a href="#">more info</a>
+        <a href="/activity/{{activity.id}}">more info</a>
     </div>
     <div class="tags">
         <a class="tag" href="{% url 'tag' tag=activity.location %}"><i class="bi bi-tag"></i>{{ activity.location_name }}</a>

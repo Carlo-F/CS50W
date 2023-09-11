@@ -34,6 +34,20 @@ def index(request):
         "current_page": "home"
     })
 
+def activity(request, activity_id):
+    try:
+        activity = Activity.objects.get(id=activity_id)
+
+        # TODO: add suggestions (similar activities)
+
+        return render(request, "scout/activity.html", {
+            "activity": activity,
+            "current_page": "activity"
+        })
+        
+    except Activity.DoesNotExist:
+        raise Http404(f"Activity with id {activity_id} does not exist.")
+
 def latest(request):
     activities = Activity.objects.all().order_by('-timestamp')
 

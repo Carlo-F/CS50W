@@ -1,0 +1,88 @@
+{% extends "scout/layout.html" %}
+{% block title %}{{activity.title}}{% endblock %}
+
+{% block body %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h2 class="border-bottom pb-2 mb-0">Activity details</h2>
+      <div class="container">
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3"><strong>Title:</strong></div>
+          <div class="col-lg-9"><strong class="fs-5">{{activity.title}}</strong></div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Age Range:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.age_range}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Activity location:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.location}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Educational goals:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.educational_goals}} - {{activity.get_educational_goals_display}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Activity duration:</strong>
+            <p class="text-body-secondary fs-6">(in minutes)</p>
+          </div>
+          <div class="col-lg-9">
+            {{activity.duration}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Required materials:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.required_materials |default:"-"}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Method:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.method}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Game mode:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.game_mode}}
+          </div>
+        </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Is this activity suitable for disabled?</strong>
+          </div>
+          <div class="col-lg-9">
+            {% if activity.is_suitable_for_disabled %}
+              Yes
+            {% else %}
+              No
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-3 p-3 bg-body">
+      <div class="container">
+        <!-- TODO: add suggestions (similar activities) -->
+      </div>
+    </div>
+{% endblock %}
