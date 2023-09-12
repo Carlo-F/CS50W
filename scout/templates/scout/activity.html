@@ -13,7 +13,7 @@
           <div class="col-lg-3">
             <strong>Age Range:</strong>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-9 text-color-{{ activity.age_range|first|lower}}">
             {{activity.age_range}}
           </div>
         </div>
@@ -78,11 +78,24 @@
             {% endif %}
           </div>
         </div>
+        <div class="row border-bottom mt-4">
+          <div class="col-lg-3">
+            <strong>Likes:</strong>
+          </div>
+          <div class="col-lg-9">
+            {{activity.likers.count}}
+          </div>
+        </div>
       </div>
     </div>
-    <div class="my-3 p-3 bg-body">
+    {% if similar_activities %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h2>Similar activities</h2>
       <div class="container">
-        <!-- TODO: add suggestions (similar activities) -->
+        {% for activity in similar_activities %}
+          {% include "scout/activity-card-small.html" %}
+        {% endfor %}
       </div>
-    </div>
+  </div>
+  {% endif %}
 {% endblock %}

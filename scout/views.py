@@ -38,11 +38,14 @@ def activity(request, activity_id):
     try:
         activity = Activity.objects.get(id=activity_id)
 
-        # TODO: add suggestions (similar activities)
+        similar_activities = Activity.objects.filter(age_range=activity.age_range, location=activity.location, game_mode=activity.game_mode).exclude(id=activity_id).order_by('-timestamp')[:3]
+
+        formatted_similar_activities = get_formatted_activities(request.user,similar_activities)
 
         return render(request, "scout/activity.html", {
             "activity": activity,
-            "current_page": "activity"
+            "current_page": "activity",
+            "similar_activities": formatted_similar_activities
         })
         
     except Activity.DoesNotExist:

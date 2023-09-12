@@ -24,6 +24,21 @@
         fill: var(--rover-color);
       }
 
+      .text-color-l {
+        color: var(--lupetti-color);
+        font-weight: bold;
+      }
+
+      .text-color-e {
+        color: var(--esploratori-color);
+        font-weight: bold;
+      }
+
+      .text-color-r {
+        color: var(--rover-color);
+        font-weight: bold;
+      }
+
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
