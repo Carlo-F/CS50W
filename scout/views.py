@@ -67,7 +67,7 @@ def latest(request):
     })
 
 def popular(request):
-    likes = Like.objects.all()
+    likes = Like.objects.all().order_by('-timestamp')
     activities = []
 
     for like in likes:
@@ -89,7 +89,7 @@ def popular(request):
 @login_required
 def favourites(request):
 
-    likes = Like.objects.filter(user=request.user)
+    likes = Like.objects.filter(user=request.user).order_by('-timestamp')
     activities = []
 
     for like in likes:
@@ -106,6 +106,23 @@ def favourites(request):
     return render(request, "scout/favourites.html", {
         "favourite_activities": page_obj,
         "current_page": "favourites"
+    })
+
+@login_required
+def my_activities(request):
+
+    activities = Activity.objects.filter(user=request.user).order_by('-timestamp')
+
+    formatted_activities = get_formatted_activities(request.user,activities)
+
+    paginator = Paginator(formatted_activities, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "scout/my_activities.html", {
+        "my_activities": page_obj,
+        "current_page": "my_activities"
     })
 
 def tags(request):

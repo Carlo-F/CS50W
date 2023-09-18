@@ -13,6 +13,7 @@ urlpatterns = [
     path("latest", views.latest, name="latest"),
     path("popular", views.popular, name="popular"),
     path("favourites", views.favourites, name="favourites"),
+    path("my-activities", views.my_activities, name="my_activities"),
 
     # api
     path("activities", views.activities, name="activities"),

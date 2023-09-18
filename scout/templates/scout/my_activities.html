@@ -1,0 +1,33 @@
+{% extends "scout/layout.html" %}
+{% block title %}My activities{% endblock %}
+
+{% block body %}
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <h2 class="border-bottom pb-2 mb-0">My activities</h2>
+      <div class="container">
+        {% if my_activities %}
+          {% for activity in my_activities %}
+            {% include "scout/activity-card-small.html" %}
+          {% endfor %}
+        {% else %}
+        <p class="p-2">Non hai ancora creato nessuna attivit&agrave;.</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="my-3 p-3 bg-body">
+      <div class="container">
+      {% if my_activities.has_other_pages %}
+      <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              {% if my_activities.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ my_activities.previous_page_number }}"><span aria-hidden="true">&laquo;</span> Previous</a></li>
+              {% endif %}
+              {% if my_activities.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ my_activities.next_page_number }}">Next <span aria-hidden="true">&raquo;</span></a></li>
+              {% endif %}
+          </ul>
+      </nav>
+      {% endif %}
+      </div>
+    </div>
+{% endblock %}
