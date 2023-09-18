@@ -6,7 +6,7 @@ def get_formatted_activities(user, activities):
 
     for activity in activities:
         activity.likes = activity.likers.all()
-        activity.logged_user_likes_post = activity.likes.filter(user=user).exists()
+        activity.logged_user_likes_activity = activity.likes.filter(user=user).exists()
         activity.location_name = dict(Activity.LOCATIONS)[activity.location]
         activity.game_mode_name = dict(Activity.GAME_MODES)[activity.game_mode]
 

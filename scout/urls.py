@@ -12,7 +12,10 @@ urlpatterns = [
     path("categories/<str:category>", views.category, name="category"),
     path("latest", views.latest, name="latest"),
     path("popular", views.popular, name="popular"),
+    path("favourites", views.favourites, name="favourites"),
 
     # api
     path("activities", views.activities, name="activities"),
+    path("like", views.like, name="like"),
+    path("dislike", views.dislike, name="dislike"),
 ]

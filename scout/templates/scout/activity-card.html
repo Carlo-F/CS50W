@@ -18,7 +18,17 @@
         <a class="tag" href="{% url 'tag' tag='is_suitable_for_disabled' %}"><i class="bi bi-tag"></i>suitable for disabled</a>
         {% endif %}
     </div>
-    <p>Likes: {{activity.likes.count}}</p>
+    <div class="like-button-div">
+        <button
+            data-activity-likes="{{activity.likes.count}}" 
+            data-activity-liked="{{activity.logged_user_likes_activity}}" 
+            data-activity-id={{activity.id}} 
+            class="p-1 btn btn-link like-button"
+        >
+            <i class="bi {{activity.logged_user_likes_activity|yesno:'bi-star-fill,bi-star'}}"></i>
+            <span class="h6 likes"></span>
+        </button>
+    </div>
     <p class="text-end m-0">
         <a href="/activity/{{activity.id}}">More info</a>
     </p>

@@ -37,13 +37,13 @@ def index(request):
 def activity(request, activity_id):
     try:
         activity = Activity.objects.get(id=activity_id)
-
+        formatted_activity = get_formatted_activities(request.user,[activity])[0]
         similar_activities = Activity.objects.filter(age_range=activity.age_range, location=activity.location, game_mode=activity.game_mode).exclude(id=activity_id).order_by('-timestamp')[:3]
 
         formatted_similar_activities = get_formatted_activities(request.user,similar_activities)
 
         return render(request, "scout/activity.html", {
-            "activity": activity,
+            "activity": formatted_activity,
             "current_page": "activity",
             "similar_activities": formatted_similar_activities
         })
@@ -84,6 +84,28 @@ def popular(request):
     return render(request, "scout/popular.html", {
         "popular_activities": page_obj,
         "current_page": "popular"
+    })
+
+@login_required
+def favourites(request):
+
+    likes = Like.objects.filter(user=request.user)
+    activities = []
+
+    for like in likes:
+        if like.liked_activity not in activities:
+            activities.append(like.liked_activity)
+
+    formatted_activities = get_formatted_activities(request.user,activities)
+
+    paginator = Paginator(formatted_activities, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "scout/favourites.html", {
+        "favourite_activities": page_obj,
+        "current_page": "favourites"
     })
 
 def tags(request):
@@ -192,7 +214,7 @@ def register(request):
         "current_page": "register"
         })
     
-# API route for search activities while typing
+# API route for search activities by title while typing
 @csrf_exempt
 def activities(request):
 
@@ -207,3 +229,37 @@ def activities(request):
         "message": "Activities retrieved successfully.",
         "result": search_options
         }, status=200)
+
+@csrf_exempt
+@login_required
+def like(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    activity_id = data.get('activity_id')
+
+    if len(activity_id) == 0:
+        return JsonResponse({"error": "activity_id is required"}, status=400)
+    
+    Like.objects.create(user_id=request.user.id, liked_activity_id=activity_id)
+    
+    return JsonResponse({"message": "Success"}, status=201)
+
+@csrf_exempt
+@login_required
+def dislike(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    activity_id = data.get('activity_id')
+
+    if len(activity_id) == 0:
+        return JsonResponse({"error": "activity_id is required"}, status=400)
+    
+    Like.objects.filter(user_id=request.user.id, liked_activity_id=activity_id).delete()
+    
+    return JsonResponse({"message": "Success"}, status=201)

@@ -3,11 +3,34 @@
 
 {% block body %}
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-      <h2 class="border-bottom pb-2 mb-0">Activity details</h2>
+      <div class="row border-bottom">
+        <div class="col">
+      <h2 class="pb-2 mb-0">
+        Activity details
+      </h2>
+        </div>
+        <div class="col-auto">
+        <button
+            data-activity-likes="{{activity.likes.count}}" 
+            data-activity-liked="{{activity.logged_user_likes_activity}}" 
+            data-activity-id={{activity.id}} 
+            class="p-1 btn btn-link like-button"
+        >
+            <i class="bi {{activity.logged_user_likes_activity|yesno:'bi-star-fill,bi-star'}}"></i>
+        </button>
+        </div>
+      </div>
+      <div class="like-button-div text-end">
+
+    </div>  
       <div class="container">
         <div class="row border-bottom mt-4">
           <div class="col-lg-3"><strong>Title:</strong></div>
-          <div class="col-lg-9"><strong class="fs-5">{{activity.title}}</strong></div>
+          <div class="col-lg-9">
+            <strong class="fs-5">
+              {{activity.title}}
+            </strong>
+          </div>
         </div>
         <div class="row border-bottom mt-4">
           <div class="col-lg-3">
@@ -76,14 +99,6 @@
             {% else %}
               No
             {% endif %}
-          </div>
-        </div>
-        <div class="row border-bottom mt-4">
-          <div class="col-lg-3">
-            <strong>Likes:</strong>
-          </div>
-          <div class="col-lg-9">
-            {{activity.likers.count}}
           </div>
         </div>
       </div>

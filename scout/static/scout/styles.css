@@ -156,6 +156,11 @@ body {
 .bg-purple {
   background-color: #6f42c1;
 }
-.bi-heart-fill {
-    color: red;
+
+.like-button {
+  text-decoration: none;
+}
+
+.menu-divider {
+  color: white;
 }
