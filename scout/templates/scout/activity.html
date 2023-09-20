@@ -103,6 +103,13 @@
             {% endif %}
           </div>
         </div>
+        {% if request.user == activity.user %}
+        <div class="row border-bottom mt-4">
+          <div class="col">
+            <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger">Delete activity</a>
+          </div>
+        </div>
+        {% endif %}
       </div>
     </div>
     {% if similar_activities %}

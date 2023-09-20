@@ -157,18 +157,22 @@ def new_activity(request):
             "form": NewActivityForm(),
             "current_page": "new_activity"
         })
+    
+@login_required
+def delete_activity(request,activity_id):
+    activity = Activity.objects.get(id=activity_id)
+
+    if activity.user != request.user:
+        return HttpResponseRedirect(reverse("index"))
+
+    activity.delete()
+
+    return HttpResponseRedirect(reverse("my_activities"))
 
 @login_required
 def edit_activity(request,activity_id):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
-    
-    data = json.loads(request.body)
-
-    # if len(data.get('content')) == 0:
-    #     return JsonResponse({"error": "post content is required"}, status=400)
-    
-    # Post.objects.filter(id=post_id,user=request.user).update(content=data.get('content'))
 
     return JsonResponse({"message": "Activity saved successfully."}, status=201)
 
