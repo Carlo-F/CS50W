@@ -31,7 +31,7 @@
                         <a class="nav-link {% if current_page == 'favourites' %} active {% endif %}" href="{% url 'favourites' %}">My favourites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if current_page == 'new activity' %} active {% endif %}" href="#">New Activity</a>
+                        <a class="nav-link {% if current_page == 'new_activity' %} active {% endif %}" href="{% url 'new_activity' %}">New Activity</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if current_page == 'my_activities' %} active {% endif %}" href="{% url 'my_activities' %}">My Activities</a>

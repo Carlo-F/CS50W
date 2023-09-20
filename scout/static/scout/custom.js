@@ -26,7 +26,7 @@ const SHOW_SUGGESTIONS = () => {
         results.forEach(result => {
             const suggestion = template.content.cloneNode(true)
             let link = suggestion.querySelector("#suggestion-link")
-            link.setAttribute('href', `/activity/${result.id}`)
+            link.setAttribute('href', `/activities/${result.id}`)
             link.innerText = result.title
             suggestionsList.appendChild(suggestion)
         })
@@ -35,16 +35,17 @@ const SHOW_SUGGESTIONS = () => {
         searchSuggestion.classList.add("d-none");
     }
 }
-
-searchInput.addEventListener('input', (e) => {
+if (searchInput !== null) {
+  searchInput.addEventListener('input', (e) => {
     if (e.target.value.length > 3) {
-        results = products.filter(product => product.title.toLowerCase().indexOf(e.target.value.trim().toLowerCase()) !== -1)
-    } else {  
-        results = []
+      results = products.filter(product => product.title.toLowerCase().indexOf(e.target.value.trim().toLowerCase()) !== -1)
+    } else {
+      results = []
     }
     suggestionsList.innerHTML = ""
     SHOW_SUGGESTIONS()
-})
+  })
+}
 
 function likeActivity(btn) {
   let activityId = btn.dataset.activityId

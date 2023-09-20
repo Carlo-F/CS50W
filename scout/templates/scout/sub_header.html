@@ -2,14 +2,14 @@
   <div class="nav-scroller border-bottom">
     <nav class="nav" aria-label="Secondary navigation">
       <a class="nav-link active" aria-current="page" href="#">Tags:</a>
-      <a class="nav-link" href="{% url 'tag' tag='outdoor' %}">Outdoor</a>
-      <a class="nav-link" href="{% url 'tag' tag='indoor' %}">Indoor</a>
-      <a class="nav-link" href="{% url 'tag' tag='team' %}">Team</a>
-      <a class="nav-link" href="{% url 'tag' tag='unit' %}">Unit</a>
-      <a class="nav-link" href="{% url 'tag' tag='single' %}">Single</a>
-      <a class="nav-link" href="{% url 'tag' tag='in-person' %}">In-person</a>
-      <a class="nav-link" href="{% url 'tag' tag='online' %}">Online</a>
-      <a class="nav-link" href="{% url 'tag' tag='is_suitable_for_disabled' %}">Suitable for disabled</a>
+      <a class="nav-link {% if tag == 'outdoor' %} active {% endif %}" href="{% url 'tag' tag='outdoor' %}">Outdoor</a>
+      <a class="nav-link {% if tag == 'indoor' %} active {% endif %}" href="{% url 'tag' tag='indoor' %}">Indoor</a>
+      <a class="nav-link {% if tag == 'team' %} active {% endif %}" href="{% url 'tag' tag='team' %}">Team</a>
+      <a class="nav-link {% if tag == 'unit' %} active {% endif %}" href="{% url 'tag' tag='unit' %}">Unit</a>
+      <a class="nav-link {% if tag == 'single' %} active {% endif %}" href="{% url 'tag' tag='single' %}">Single</a>
+      <a class="nav-link {% if tag == 'in-person' %} active {% endif %}" href="{% url 'tag' tag='in-person' %}">In-person</a>
+      <a class="nav-link {% if tag == 'online' %} active {% endif %}" href="{% url 'tag' tag='online' %}">Online</a>
+      <a class="nav-link {% if tag == 'is_suitable_for_disabled' %} active {% endif %}" href="{% url 'tag' tag='is_suitable_for_disabled' %}">Suitable for disabled</a>
     </nav>
   </div>
 </div>

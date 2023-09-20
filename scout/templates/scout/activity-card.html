@@ -19,6 +19,7 @@
         {% endif %}
     </div>
     <div class="like-button-div">
+        {% if user.is_authenticated %}
         <button
             data-activity-likes="{{activity.likes.count}}" 
             data-activity-liked="{{activity.logged_user_likes_activity}}" 
@@ -28,9 +29,10 @@
             <i class="bi {{activity.logged_user_likes_activity|yesno:'bi-star-fill,bi-star'}}"></i>
             <span class="h6 likes"></span>
         </button>
+        {% endif %}
     </div>
     <p class="text-end m-0">
-        <a href="/activity/{{activity.id}}">More info</a>
+        <a href="/activities/{{activity.id}}">activity details</a>
     </p>
     </div>
 </div>

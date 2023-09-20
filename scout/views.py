@@ -8,11 +8,22 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.http import HttpResponse
+from django import forms
 
-from .models import User,Activity,Like
+from .models import User,Activity,Like,EducationalGoal
 from .utils import get_formatted_activities
 
-# Create your views here.
+class NewActivityForm(forms.Form):
+
+    activity_title = forms.CharField(label="title",widget=forms.TextInput(attrs={"class": "form-control mb-4"}))
+    activity_age_range = forms.ChoiceField(choices=Activity.AGE_RANGES,label="age range", widget=forms.Select(attrs={"class":"form-control mb-4"}))
+    activity_location = forms.ChoiceField(choices=Activity.LOCATIONS,label="location", widget=forms.Select(attrs={"class":"form-control mb-4"}))
+    activity_educational_goals = forms.ChoiceField(choices=EducationalGoal.EDUCATIONAL_GOALS,label="educational goal", widget=forms.Select(attrs={"class":"form-control mb-4"}))
+    activity_duration = forms.IntegerField(min_value=1, required=True, label="duration",widget=forms.NumberInput(attrs={"class": "form-control mb-4"}))
+    activity_required_materials = forms.CharField(label="required materials", required=False, widget=forms.TextInput(attrs={"class": "form-control mb-4"}))
+    activity_method = forms.CharField(widget=forms.Textarea(attrs={"rows":"5", "class": "form-control mb-4"}))
+    activity_game_mode = forms.ChoiceField(choices=Activity.GAME_MODES,label="game mode", widget=forms.Select(attrs={"class":"form-control mb-4"}))
+    activity_is_suitable_for_disabled = forms.BooleanField(label="Is suitable for disabled?", required=False, widget=forms.CheckboxInput(attrs={"class":"mb-4"}))
 
 def index(request):
     activities = Activity.objects.all().order_by('-timestamp')[:3]
@@ -107,6 +118,60 @@ def favourites(request):
         "favourite_activities": page_obj,
         "current_page": "favourites"
     })
+
+@login_required
+def new_activity(request):
+
+    if request.method == "POST":
+        form = NewActivityForm(request.POST)
+
+        if form.is_valid():
+            activity_title = form.cleaned_data['activity_title']
+            activity_age_range = form.cleaned_data['activity_age_range']
+            activity_location = form.cleaned_data['activity_location']
+            activity_educational_goals = form.cleaned_data['activity_educational_goals']
+            activity_duration = form.cleaned_data['activity_duration']
+            activity_required_materials = form.cleaned_data['activity_required_materials']
+            activity_method = form.cleaned_data['activity_method']
+            activity_game_mode = form.cleaned_data['activity_game_mode']
+            activity_is_suitable_for_disabled = form.cleaned_data['activity_is_suitable_for_disabled']
+
+            new_activity = Activity(
+                title=activity_title,
+                user=request.user,
+                age_range=activity_age_range,
+                location=activity_location,
+                educational_goals=activity_educational_goals,
+                duration=activity_duration,
+                required_materials=activity_required_materials,
+                method=activity_method,
+                game_mode=activity_game_mode,
+                is_suitable_for_disabled=activity_is_suitable_for_disabled
+            )
+
+            new_activity.save()
+
+            return HttpResponseRedirect(reverse("my_activities"))
+    else:
+        return render(request, "scout/new_activity.html",{
+            "form": NewActivityForm(),
+            "current_page": "new_activity"
+        })
+
+@login_required
+def edit_activity(request,activity_id):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+    
+    data = json.loads(request.body)
+
+    # if len(data.get('content')) == 0:
+    #     return JsonResponse({"error": "post content is required"}, status=400)
+    
+    # Post.objects.filter(id=post_id,user=request.user).update(content=data.get('content'))
+
+    return JsonResponse({"message": "Activity saved successfully."}, status=201)
+
 
 @login_required
 def my_activities(request):

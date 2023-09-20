@@ -7,7 +7,7 @@
     <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
     <div class="d-flex justify-content-between">
         <strong class="text-gray-dark">{{ activity.title }}</strong>
-        <a href="/activity/{{activity.id}}">more info</a>
+        <a href="/activities/{{activity.id}}">activity details</a>
     </div>
     <div class="tags">
         <a class="tag" href="{% url 'tag' tag=activity.location %}"><i class="bi bi-tag"></i>{{ activity.location_name }}</a>
@@ -17,6 +17,7 @@
         {% endif %}
     </div>
     <div class="text-end like-button-div">
+        {% if user.is_authenticated %}
         <button
             data-activity-likes="{{activity.likes.count}}" 
             data-activity-liked="{{activity.logged_user_likes_activity}}" 
@@ -26,6 +27,7 @@
             <i class="bi {{activity.logged_user_likes_activity|yesno:'bi-star-fill,bi-star'}}"></i>
             <span class="h6 likes"></span>
         </button>
+        {% endif %}
     </div>
     </div>
 </div>

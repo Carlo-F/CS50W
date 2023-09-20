@@ -10,6 +10,7 @@
       </h2>
         </div>
         <div class="col-auto">
+        {% if user.is_authenticated %}
         <button
             data-activity-likes="{{activity.likes.count}}" 
             data-activity-liked="{{activity.logged_user_likes_activity}}" 
@@ -18,6 +19,7 @@
         >
             <i class="bi {{activity.logged_user_likes_activity|yesno:'bi-star-fill,bi-star'}}"></i>
         </button>
+        {% endif %}
         </div>
       </div>
       <div class="like-button-div text-end">
