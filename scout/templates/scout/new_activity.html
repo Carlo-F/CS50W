@@ -2,8 +2,8 @@
 {% block title %}New activity{% endblock %}
 
 {% block body %}
-<div class="my-3 p-3 bg-body rounded shadow-sm">
-  <h2 class="pb-2 mb-0">New activity</h2>
+<div class="mb-3 p-3 bg-light rounded shadow-sm">
+  <h2 class="border-bottom pb-2 mb-0">New activity</h2>
   <form action="{% url 'new_activity' %}" method="post">
       {% csrf_token %}
       {% for field in form %}

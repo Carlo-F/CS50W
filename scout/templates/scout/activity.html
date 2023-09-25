@@ -2,12 +2,12 @@
 {% block title %}{{activity.title}}{% endblock %}
 
 {% block body %}
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="mb-3 p-3 bg-light rounded shadow-sm">
       <div class="row border-bottom">
         <div class="col">
-      <h2 class="pb-2 mb-0">
-        Activity details
-      </h2>
+          <h2 class="pb-2 mb-0">
+            Activity details
+          </h2>
         </div>
         <div class="col-auto">
         {% if user.is_authenticated %}
@@ -25,7 +25,7 @@
       <div class="like-button-div text-end">
 
     </div>  
-      <div class="container">
+      <div class="container my-2 p-2 bg-body">
         <div class="row border-bottom mt-4">
           <div class="col-lg-3"><strong>Title:</strong></div>
           <div class="col-lg-9">
@@ -104,16 +104,16 @@
           </div>
         </div>
         {% if request.user == activity.user %}
-        <div class="row border-bottom mt-4">
+        <div class="row mt-4 text-end">
           <div class="col">
-            <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger">Delete activity</a>
+            <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger mb-2">Delete activity</a>
           </div>
         </div>
         {% endif %}
       </div>
     </div>
     {% if similar_activities %}
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 bg-light rounded shadow-sm">
       <h2>Similar activities</h2>
       <div class="container">
         {% for activity in similar_activities %}

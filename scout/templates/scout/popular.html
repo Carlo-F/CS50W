@@ -2,7 +2,7 @@
 {% block title %}Popular{% endblock %}
 
 {% block body %}
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="my-3 p-3 bg-light rounded shadow-sm">
       <h2 class="border-bottom pb-2 mb-0">Popular activities</h2>
       <div class="container">
         {% for activity in popular_activities %}
@@ -10,10 +10,10 @@
         {% endfor %}
       </div>
     </div>
-    <div class="my-3 p-3 bg-body">
+    {% if popular_activities.has_other_pages %}
+    <div class="my-3 p-3 bg-light">
       <div class="container">
-      {% if popular_activities.has_other_pages %}
-      <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example">
           <ul class="pagination">
               {% if popular_activities.has_previous %}
                   <li class="page-item"><a class="page-link" href="?page={{ popular_activities.previous_page_number }}"><span aria-hidden="true">&laquo;</span> Previous</a></li>
@@ -22,8 +22,8 @@
               <li class="page-item"><a class="page-link" href="?page={{ popular_activities.next_page_number }}">Next <span aria-hidden="true">&raquo;</span></a></li>
               {% endif %}
           </ul>
-      </nav>
-      {% endif %}
+        </nav>
       </div>
     </div>
+    {% endif %}
 {% endblock %}

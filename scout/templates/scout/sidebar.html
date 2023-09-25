@@ -1,50 +1,55 @@
 <div class="position-sticky" style="top: 2rem;">
     <div class="p-4 mb-3 bg-light rounded shadow-sm">
-        <h4 class="fst-italic">Browse by age range</h4>
-        <ol class="list-unstyled">
-            <li class="mb-2">
-                <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Lupetti</title>
-                    <rect class="l" width="100%" height="100%" fill="#007bff"/>
-                    <text x="50%" y="50%" fill="#ffffff" dy=".3em">L</text>
-                </svg>
-                <a href="{% url 'category' category='lupetti' %}">
-                    Lupetti
-                </a>
-            </li>
-            <li class="mb-2">
-                <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Esploratori</title>
-                    <rect class="e" width="100%" height="100%" fill="#007bff"/>
-                    <text x="50%" y="50%" fill="#ffffff" dy=".3em">E</text>
-                </svg>
-                <a href="{% url 'category' category='esploratori' %}">
-                    Esploratori
-                </a>
-            </li>
-            <li class="mb-2">
-                <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-                    <title>Rover</title>
-                    <rect class="r" width="100%" height="100%" fill="#007bff"/>
-                    <text x="50%" y="50%" fill="#ffffff" dy=".3em">R</text>
-                </svg>
-                <a href="{% url 'category' category='rover' %}">
-                    Rover
-                </a>
-            </li>
-        </ol>
+        <h4 class="border-bottom pb-2 fst-italic">Browse by age range</h4>
+        <div class="p-2 bg-body">
+            <ol class="list-unstyled">
+                <li class="mb-2">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Lupetti</title>
+                        <rect class="l" width="100%" height="100%" fill="#007bff"/>
+                        <text x="50%" y="50%" fill="#ffffff" dy=".3em">L</text>
+                    </svg>
+                    <a href="{% url 'category' category='lupetti' %}">
+                        Lupetti
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Esploratori</title>
+                        <rect class="e" width="100%" height="100%" fill="#007bff"/>
+                        <text x="50%" y="50%" fill="#ffffff" dy=".3em">E</text>
+                    </svg>
+                    <a href="{% url 'category' category='esploratori' %}">
+                        Esploratori
+                    </a>
+                </li>
+                <li class="mb-2">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <title>Rover</title>
+                        <rect class="r" width="100%" height="100%" fill="#007bff"/>
+                        <text x="50%" y="50%" fill="#ffffff" dy=".3em">R</text>
+                    </svg>
+                    <a href="{% url 'category' category='rover' %}">
+                        Rover
+                    </a>
+                </li>
+            </ol>
+        </div>
     </div>
 
     <div class="p-4 mb-3 bg-light rounded shadow-sm">
-        <h4 class="fst-italic">Browse by Tags</h4>
-        <ol class="list-unstyled mb-0 border-bottom">
-            <li class="mb-2"><a href="{% url 'tag' tag='team' %}"><i class="bi bi-tag"></i>team</a></li>
-            <li class="mb-2"><a href="{% url 'tag' tag='unit' %}"><i class="bi bi-tag"></i>unit</a></li>
-            <li class="mb-2"><a href="{% url 'tag' tag='single' %}"><i class="bi bi-tag"></i>single</a></li>
-        </ol>
-        <small class="d-block text-end mt-3">
-            <a href="{% url 'tags' %}">All tags</a>
-        </small>
+        <h4 class="border-bottom pb-2 fst-italic">Browse by Tags</h4>
+        <div class="p-2 bg-body">
+            <ol class="list-unstyled mb-0">
+                <li class="mb-2"><a href="{% url 'tag' tag='team' %}"><i class="bi bi-tag"></i>team</a></li>
+                <li class="mb-2"><a href="{% url 'tag' tag='unit' %}"><i class="bi bi-tag"></i>unit</a></li>
+                <li class="mb-2"><a href="{% url 'tag' tag='single' %}"><i class="bi bi-tag"></i>single</a></li>
+            </ol>
+            <small class="d-block text-end mt-3">
+                <a href="{% url 'tags' %}">All tags</a>
+            </small>
+        </div>
+        
     </div>
 
 </div>
