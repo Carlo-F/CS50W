@@ -1,0 +1,18 @@
+{% extends "scout/layout.html" %}
+{% block title %}New activity{% endblock %}
+
+{% block body %}
+<div class="mb-3 p-3 bg-light rounded shadow-sm">
+  <h2 class="border-bottom pb-2 mb-0">Edit activity</h2>
+  <form action="{% url 'edit_activity' activity.id %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          {{field.label_tag}}
+          {{field}}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-success">Save</button>
+  </form>
+</div>
+{% endblock %}

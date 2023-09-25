@@ -106,6 +106,7 @@
         {% if request.user == activity.user %}
         <div class="row mt-4 text-end">
           <div class="col">
+            <a href="{% url 'edit_activity' activity.id %}" class="btn btn-primary mb-2">Edit activity</a>
             <a href="{% url 'delete_activity' activity.id %}" class="btn btn-danger mb-2">Delete activity</a>
           </div>
         </div>

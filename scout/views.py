@@ -171,10 +171,45 @@ def delete_activity(request,activity_id):
 
 @login_required
 def edit_activity(request,activity_id):
-    if request.method != "POST":
-        return JsonResponse({"error": "POST request required."}, status=400)
+    activity = Activity.objects.get(id=activity_id, user=request.user)
 
-    return JsonResponse({"message": "Activity saved successfully."}, status=201)
+    if request.method == "POST":
+        form = NewActivityForm(request.POST)
+
+        if form.is_valid():
+
+            activity.title = form.cleaned_data['activity_title']
+            activity.age_range = form.cleaned_data['activity_age_range']
+            activity.location = form.cleaned_data['activity_location']
+            activity.educational_goals = form.cleaned_data['activity_educational_goals']
+            activity.duration = form.cleaned_data['activity_duration']
+            activity.required_materials = form.cleaned_data['activity_required_materials']
+            activity.method = form.cleaned_data['activity_method']
+            activity.game_mode = form.cleaned_data['activity_game_mode']
+            activity.is_suitable_for_disabled = form.cleaned_data['activity_is_suitable_for_disabled']
+
+            activity.save()
+            # redirect to the detail page of the `Band` we just updated
+            return HttpResponseRedirect(reverse("activity",kwargs={'activity_id':activity.id}))
+    else:
+
+        form = NewActivityForm(initial={
+            'activity_title': activity.title,
+            'activity_age_range': activity.age_range,
+            'activity_location': activity.location,
+            'activity_educational_goals': activity.educational_goals,
+            'activity_duration': activity.duration,
+            'activity_required_materials': activity.required_materials,
+            'activity_method': activity.method,
+            'activity_game_mode': activity.game_mode,
+            'activity_is_suitable_for_disabled': activity.is_suitable_for_disabled
+        })
+
+        return render(request, "scout/edit_activity.html",{
+            "form": form,
+            "current_page": "my_activities",
+            "activity": activity
+        })
 
 
 @login_required
