@@ -305,16 +305,17 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("login"))
 
 
 def register(request):
     if request.method == "POST":
+        username= request.POST["username"]
         email = request.POST["email"]
-
-        # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
+
+        # Ensure password matches confirmation
         if password != confirmation:
             return render(request, "scout/register.html", {
                 "message": "Passwords must match."
@@ -322,15 +323,15 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(email, email, password)
+            user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError as e:
             print(e)
             return render(request, "scout/register.html", {
-                "message": "Email address already taken."
+                "message": "username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("my_activities"))
     else:
         return render(request, "scout/register.html",{
         "current_page": "register"
