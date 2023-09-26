@@ -189,7 +189,7 @@ def edit_activity(request,activity_id):
             activity.is_suitable_for_disabled = form.cleaned_data['activity_is_suitable_for_disabled']
 
             activity.save()
-            # redirect to the detail page of the `Band` we just updated
+
             return HttpResponseRedirect(reverse("activity",kwargs={'activity_id':activity.id}))
     else:
 
@@ -284,17 +284,18 @@ def login_view(request):
     if request.method == "POST":
 
         # Attempt to sign user in
-        email = request.POST["email"]
+        username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
 
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("my_activities"))
         else:
             return render(request, "scout/login.html", {
-                "message": "Invalid email and/or password."
+                "message": "Invalid username and/or password.",
+                "current_page": "login"
             })
     else:
         return render(request, "scout/login.html",{
