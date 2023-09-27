@@ -6,20 +6,54 @@ class User(AbstractUser):
     pass
 
 class EducationalGoal(models.Model):
-    # todo: finish list
     EDUCATIONAL_GOALS = [
         (
             "1. Impegno Civile",
             (
-               ("1.1", "Impegno per la legalita' e la difesa dei diritti"),
-               ("1.2", "Partecipazione e cittadinanza attiva") 
+               ("1.1", "Impegno per la legalità e la difesa dei diritti"),
+               ("1.2", "Partecipazione e cittadinanza attiva"),
+               ("1.3", "Sensibilità, attenzione e rispetto verso l’ambiente"),
+               ("1.4", "Adottare stili di vita sostenibili e solidali"),
+               ("1.5", "Interpretare criticamente i messaggi sociali"),
+               ("1.6", "Valorizzare e integrare le diversità"),
+               ("1.7", "Impegno per la pace"),
             ),
         ),
         (
-            "2. Corporieta'",
+            "2. Corporietà",
             (
                 ("2.1", "Consapevolezza e sviluppo di se', dei propri limiti e delle proprie potenzialita'"),
-                ("2.2", "Adozione di stili di vita sani")
+                ("2.2", "Adozione di stili di vita sani"),
+                ("2.3", "Corporeità nelle relazioni"),
+            ),
+        ),
+        (
+            "3. Creatività",
+            (
+                ("3.1", "Originalità e Fantasia"),
+                ("3.2", "Capacità progettuali"),
+                ("3.3", "Capacità operative"),
+                ("3.4", "Sostenibilità nella gestione delle risorse"),
+            ),
+        ),
+        (
+            "4. Carattere",
+            (
+                ("4.1", "Educazione all’impegno e alla responsabilità"),
+                ("4.2", "Sviluppo del senso critico"),
+                ("4.3", "Vivere i valori"),
+                ("4.4", "Gestione delle emozioni"),
+                ("4.5", "Saper comunicare"),
+                ("4.6", "Sensibilità, attenzione e rispetto verso se stessi e verso gli altri"),
+                ("4.7", "Saper collaborare"),
+            ),
+        ),
+        (
+            "5. Dimensione spirituale",
+            (
+                ("5.1", "Sviluppare una ricerca personale"),
+                ("5.2", "Saper dare un senso alle proprie esperienze e ai propri vissuti"),
+                ("5.3", "Coerenza nelle scelte"),
             ),
         ),
     ]
@@ -28,9 +62,9 @@ class Activity(models.Model):
     title = models.CharField(max_length=180)
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="activities")
     AGE_RANGES = [
-        ("lupetti", "Lupetti"),
-        ("esploratori", "Esploratori"),
-        ("rover", "Rover"),
+        ("lupetti", "Lupetti (8-11 years)"),
+        ("esploratori", "Esploratori (12-15 years)"),
+        ("rover", "Rover (16-19 years)"),
     ]
     LOCATIONS = [
         ("indoor", "indoor activity"),
@@ -51,7 +85,6 @@ class Activity(models.Model):
     method = models.TextField(default=None)
     game_mode = models.CharField(max_length=80, choices=GAME_MODES, default="team")
     is_suitable_for_disabled = models.BooleanField(default=0)
-    # add more tags
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -18,17 +18,35 @@ Il progetto **LET'S SCOUT!** è stato ispirato dalla necessità dell'Associazion
 ### Distinctiveness and Complexity
 
 #### Come questo progetto si distingue dagli altri del corso: distinctiveness
-Questo progetto si distingue dagli altri sviluppati durante il corso in quanto non è un e-commerce, ne un social network, ne nient'altro di simile gia' fatto. E' piuttosto una piattaforma di tipo knoledge-sharing, in cui gli utenti can create, share, organize, access and store le informazioni di cui hanno bisogno, sia loro che altri utenti come loro. **LET'S SCOUT!** e' pertanto una piattaforma web di creazione, condivisione e ricerca di una specifica tipologia di informazione, per rispondere ad una specifica esigenza informativa di conoscenza.
+Questo progetto si distingue dagli altri sviluppati durante il corso in quanto non è un e-commerce, ne un social network, ne nient'altro di simile gia' fatto. E' piuttosto una piattaforma di tipo knoledge-sharing, in cui gli utenti can create, share, organize, access and store le informazioni di cui hanno bisogno, sia loro che altri utenti come loro. **LET'S SCOUT!** e' pertanto una piattaforma web di creazione, condivisione e ricerca di una specifica tipologia di informazione, per rispondere ad una specifica esigenza informativa di conoscenza degli educatori scout.
 
 #### In cosa questo progetto e' piu complesso degli altri del corso: complexity
-Per aumentare la complessita' di questo progetto rispetto agli altri progetti portati a termine durante il corso, ho ripreso alcune funzionalita' presenti negli altri progetti, e ho proceduto quindi ad arricchirle, espanderle e a renderle piu' complesse. Ad esempio, c'e' maggiore complessita' nella funzionalita' di ricerca delle informazioni. Durante il corso le informazioni potevano essere ricercate sostanzialmente in due modi: consultando delle pagine-elenco come "latest", "following", "categories" (riferimento a progetti Commerce e Network) oppure con una ricerca semplificata con parametro in query string (riferimento a progetto Wiki). In questo progetto ho voluto implementare queste funzionalita' ma le ho anche rese piu' complesse: ho aggiunto una nuova tipologia di ricerca, **la ricerca per etichette** e ho reso la ricerca testuale piu' complessa implementando una funzionalita' che restituisce i risultati immediatamente durante la digitazione dell'utente tramite interrogazione di API.
+Per aumentare la complessita' di questo progetto rispetto agli altri progetti portati a termine durante il corso, ho ripreso alcune funzionalita' gia' presenti negli altri progetti, e ho proceduto quindi ad arricchirle, espanderle e a renderle piu' complesse. Ad esempio, c'e' maggiore complessita' nella funzionalita' di **ricerca delle informazioni**. 
 
-Un altro esempio riguarda la creazione di una scheda attivita' in questo progetto, il modello di questa entita' richiede piu' informazioni della creazione di un post nel progetto Network e anche piu' informazioni di una scheda prodotto del progetto Commerce. Questo ha implicato piu' campi da gestire sia nel modello, sia nel database, sia nel form nel frontend dell'applicativo aumentando la complessita' generale.
+Durante il corso le informazioni potevano essere ricercate sostanzialmente in due modi: **consultando delle pagine-elenco** come "latest", "following", "categories" (riferimento a progetti Commerce e Network) oppure con una **ricerca semplificata** con parametro in query string (riferimento a progetto Wiki).
+
+In questo progetto ho voluto implementare queste due funzionalita' ma le ho anche rese piu' complesse: la ricerca testuale e' piu' complessa perche' ho scelto di implementare una nuova funzionalita' che restituisce i risultati in tempo reale durante la digitazione dell'utente tramite interrogazione di API creata ad hoc (tramite la search bar posta in alto in ogni pagina).
+
+La ricerca per pagine-elenco e' anche questa piu' complessa: ho aggiunto una nuova tipologia di ricerca, **la ricerca per tags**. I tag sono essenzialmente delle caratteristiche predefinite (quindi gia' fissate in origine) che l'utente puo' o meno attribuire alle attivita' in fase di creazione. La ricerca per etichette aggiunge al progetto la pagina **Tags** con elenco di tutti i tag, e la pagina del singolo **Tag** dove sono elencate tutte le attivita' che possiedono quella specifica caratteristica.
+
+Due ulteriori esempi della maggior complessita' riguardano la **complessita' di una scheda attivita'** e la funzionalita' di **attivita' suggerite** (similar activities).
+
+In questo progetto, infatti, il modello dell'entita' *Activity* richiede piu' informazioni rispetto alla creazione di un post nel progetto Network e anche piu' informazioni di una scheda prodotto del progetto Commerce. Questo ha implicato piu' campi da gestire sia nel modello, sia nel database, sia nel form nel frontend dell'applicativo aumentando ulteriormente la complessita' generale. Inoltre, nella pagina della singola attivita', in basso, possono comparire delle **attivita' simili**. Sono attivita' che condividono delle caratteristiche con l'attivita' attualmente visualizzata.
 
 
 ### Funzionalità
 
 Elenca le principali funzionalità del tuo progetto. Descrivile in modo chiaro e conciso, evidenziando ciò che lo rende unico o interessante. Puoi anche includere screenshot o GIF animate per mostrare il progetto in azione.
+
+- ricerca di schede attivita secondo differenti parametri:
+    - age range
+    - titolo (ricerca testuale in tempo reale)
+    - tag specifici (caratteristiche)
+    - per popolarita'
+    - dal piu' recente al meno recente
+- creazione e modifica di schede attivita' proprie
+- possibilita' di salvare le schede attivita' in una sezione "favoriti"
+- attivita' suggerite (similar activities)
 
 ### Tecnologie utilizzate
 
@@ -47,6 +65,12 @@ Spiega l'organizzazione del codice nel progetto. Se hai una struttura modulare o
 ### Contenuto dei file
 
 elenca **TUTTI i file** presenti nel repository e spiega brevemente la funzione di ciascuno.
+
+### Sviluppi futuri
+
+- registrazione libera oppure utenti creati solo da admin
+- poter scaricare in PDF la scheda di un'attivita'
+- aggiungere ulteriori tag se necessario
 
 ### Contatti
 
