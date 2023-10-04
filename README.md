@@ -28,8 +28,6 @@ Durante il corso le informazioni potevano essere ricercate sostanzialmente in du
 
 In questo progetto ho voluto implementare queste due funzionalita' di ricerca ma le ho anche rese piu' complesse: ho scelto infatti di implementare una nuova funzionalita' di ricerca testuale che restituisce risultati in tempo reale durante la digitazione dell'utente tramite interrogazione di API creata ad hoc (tramite la searchbar posta in alto in ogni pagina).
 
-![Searchbar image](static/scout/images/searchbar.png)
-
 La ricerca per pagine-elenco e' anche questa piu' complessa: ho aggiunto una nuova funzionalita' di ricerca, **la ricerca per tags**. I tag sono essenzialmente delle caratteristiche predefinite (quindi gia' fissate in origine) che l'utente puo' o meno attribuire alle attivita' in fase di creazione. La ricerca per etichette aggiunge al progetto la pagina **Tags** con elenco di tutti i tag, e la pagina del singolo **Tag** dove sono elencate tutte le attivita' che possiedono quella specifica caratteristica.
 
 Due ulteriori esempi della maggior complessita' riguardano la **complessita' di una scheda attivita'** e la funzionalita' di **attivita' suggerite** (_similar activities_).
