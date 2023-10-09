@@ -10,7 +10,7 @@ What if there were a single web portal for publishing all the activities of the 
 
 The **LET'S SCOUT!** project stems from this very real need. **LET'S SCOUT!** is, therefore, a web portal where detailed scout activities can be created, shared and searched for.
 
-The scout method in a non-formal education method with the aim of developing “good citizenship among young people by forming their character, training them in habits of observation, obedience and self-reliance” (Lord Baden-Powell).
+The scout activity method in a non-formal education method with the aim of developing “good citizenship among young people by forming their character, training them in habits of observation, obedience and self-reliance” (Lord Baden-Powell).
 
 Each activity sheet on **LET'S SCOUT!** will be standardised and will contain all the information necessary for the leader to reproduce the activity with their troop, including the recommended age range of the participants, the required materials, the characteristics and the educational objectives that the activity aims to achieve.
 
@@ -19,20 +19,20 @@ The **LET'S SCOUT!** project was inspired by the need of the Italian Scout Assoc
 ### Distinctiveness and Complexity
 
 #### How this project differs from the others in the course: distinctiveness
-This project differs from the others developed during the course as it is not an e-commerce, nor a social network, or anything similar to what was done previously. Rather it is a _knowledge-sharing_ platform, where users can create, share organise, access and store the specific information they need, both for themselves and other users. **LET'S SCOUT!** is therefore a web platform for creating, sharing and searching for a specific type of information, responding to a specific informational need of scout leaders.
+This project differs from the others developed during the course as it is not an e-commerce, nor a social network, or anything similar to what was done previously. Rather it is a _knowledge-sharing_ platform, where users can create, share, organise, access and store the specific information they need, both for themselves and other users. **LET'S SCOUT!** is therefore a web application platform for creating, sharing and searching for a specific type of information (scout activities), responding to a specific informational need of scout leaders.
 
 #### How this project is more complex than the others in the course: complexity
-To increase the complexity of this project compared to the other projects completed during the course, I took some of the functionalities already present in other projects, and I enriched them by expanding them and making them more complex. For example, the **information search** function is more complex.
+To increase the complexity of this project compared to the other projects completed during the course, I took some of the functionalities already present in other projects, and I enriched them by expanding them and making them more complex. For example, the **information search** functionality is more complex.
 
-During the course the information could essentially be searched for in one of two ways: **Consulting the list page** such as “latest”, “following”, “categories” (with reference to the Commerce and Network projects) or with a **simplified search** with query string parameters (with reference to the Wiki project).
+During the course the information could essentially be searched for in one of two ways: **Consulting a list page** such as “latest”, “following”, “categories” (with reference to the Commerce and Network projects) or with a **simplified search with query string parameters** (with reference to the Wiki project).
 
-In this project I used these two search functions but I made them more complex: infact I chose to implement a text search function that gives results in real time as the used types by using a tailor-made interrogation API (through the search bar at the top of every page).
+In this project I used these two search functionalities but I made them more complex: infact I chose to implement a text search functionality that gives results in real time as the user types by using a tailor-made interrogation API (through the search bar at the top of every page).
 
-The list page search is also more complex: I added a new search function, **the tags search**. The tags are essentially predefined characteristics (so already set at origin) that the user can choose to attribute to the activity when creating it. The tags search adds the **Tags** page to the project with a list of all tags, and the single **Tag** page where all the activities with that specific characteristic are listed.
+The list page search is also more complex now: I added a new search functionality, **the tags search**. Those tags are essentially predefined characteristics, that the user can choose to attribute to the activity when creating it. The tags search adds the **Tags** page to the project with a list of all tags, and the single **Tag** page where all the activities with that specific characteristic are listed.
 
-Two further examples of increased complexity are the **complexity of an activity sheet** and the **suggested activities** function (_similar activities_).
+Two further examples of increased complexity are the **complexity of an activity sheet** and the **suggested activities functionality** (_similar activities_).
 
-In this project the entity model for the activity sheet (_Activity_) requires more information than for the creation of a post in the Network project and even more information than in a product sheet in the Commerce project. This means more fields to manage both in the model, and in the database, and in the frontend form of the application, further increasing the complexity in general. Furthermore, on the single activity page, at the bottom, **suggested activities** may appear. These are activities that have the same characteristics as the activity currently being viewed and that could be of interest to the user.
+In this project the entity model for the activity sheet (_Activity_) requires more information than for the creation of a post in the Network project and even more information than in a product sheet in the Commerce project. This means more fields to manage in the model, in the database and in the frontend form of the application, further increasing the complexity in general. Furthermore, on the single activity page, at the bottom, a **suggested activities** box may appear. These are activities that have the some characteristics as the activity currently being viewed and that could be of interest to the user.
 
 ### Code structure and file contents
 - `capstone/` capstone project's folder.
@@ -82,7 +82,7 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
 ### Installation
 The application runs on the default port 8000. No additional Python package is necessary.
 
-1. Make and apply migrations:
+1. Make and run migrations:
     `python manage.py makemigrations`
     followed by 
     `python manage.py migrate`
@@ -93,8 +93,8 @@ The application runs on the default port 8000. No additional Python package is n
 
 ### Additional information
 
-#### Web application functionality
-List of the main functionalities of the project:
+#### Web application functionalities
+A list of the main functionalities of this web application:
 - user registration and login
 - creation and modification of scout activity sheets
 - activity sheets search with various possibilities:
@@ -102,9 +102,9 @@ List of the main functionalities of the project:
     - search by title (real time text search)
     - search by tag
     - search by popularity
-    - search from the most recent to the least recent (latest)
+    - search from the most recent to the least recent (latest page)
 - possibility to save activity sheets in a “favourites” section
-- suggested activities function (similar activities)
+- suggested activities functionality (similar activities)
 
 #### Technology used
 - Python
@@ -115,8 +115,8 @@ List of the main functionalities of the project:
 - Bootstrap 5.3
 
 #### Future developments
-- limit user registration to only scout leaders
-- option to download the activity sheets in PDF
+- limit user registration to only scout leaders to improve the quality of the content created
+- create a functionality: download the activity sheets in PDF by clicking a button
 - add further tags if necessary
 
 #### Info and Contacts
