@@ -1,7 +1,7 @@
-## LET'S SCOUT! | CS50W CAPSTONE PROJECT
+# LET'S SCOUT! | CS50W CAPSTONE PROJECT
 **Designing and implementing a web application of your own with Python and JavaScript.**
 
-### Introduction
+## Introduction
 **Scout leaders waste lots of time creating new and engaging educational activities for their troops.**
 
 However, creating new activities from scratch every time is not easy, especially when they must be in keeping with the educational goals that we want to achieve. Leaders often ask other leaders for help or search on the internet in the hopes of finding activities already prepared by others and that they can re-use with their troop. And the leaders have to go through this every time, for every activity and this, as well as taking up time, can also be very frustrating.
@@ -16,12 +16,12 @@ Each activity sheet on **LET'S SCOUT!** will be standardised and will contain al
 
 The **LET'S SCOUT!** project was inspired by the need of the Italian Scout Association to have a single, standardised database of activity sheets, which does not currently exist in any form. At the moment, the leaders do not have a dedicated place to search for inspiration for their activities and have improvise by searching online or asking each other for help each time. The **LET'S SCOUT!** portal, once the CS50W course has finished, will be implemented, in agreement with the Italian scout association, for use in all Italian groups.
 
-### Distinctiveness and Complexity
+## Distinctiveness and Complexity
 
-#### How this project differs from the others in the course: distinctiveness
+### How this project differs from the others in the course: distinctiveness
 This project differs from the others developed during the course as it is not an e-commerce, nor a social network, or anything similar to what was done previously. Rather it is a _knowledge-sharing_ platform, where users can create, share, organise, access and store the specific information they need, both for themselves and other users. **LET'S SCOUT!** is therefore a web application platform for creating, sharing and searching for a specific type of information (scout activities), responding to a specific informational need of scout leaders.
 
-#### How this project is more complex than the others in the course: complexity
+### How this project is more complex than the others in the course: complexity
 To increase the complexity of this project compared to the other projects completed during the course, I took some of the functionalities already present in other projects, and I enriched them by expanding them and making them more complex. For example, the **information search** functionality is more complex.
 
 During the course the information could essentially be searched for in one of two ways: **Consulting a list page** such as “latest”, “following”, “categories” (with reference to the Commerce and Network projects) or with a **simplified search with query string parameters** (with reference to the Wiki project).
@@ -34,7 +34,7 @@ Two further examples of increased complexity are the **complexity of an activity
 
 In this project the entity model for the activity sheet (_Activity_) requires more information than for the creation of a post in the Network project and even more information than in a product sheet in the Commerce project. This means more fields to manage in the model, in the database and in the frontend form of the application, further increasing the complexity in general. Furthermore, on the single activity page, at the bottom, a **suggested activities** box may appear. These are activities that have the some characteristics as the activity currently being viewed and that could be of interest to the user.
 
-### Code structure and file contents
+## Code structure and file contents
 - `capstone/` capstone project's folder.
     - `asgi.py`
     - `settings.py` added some configuration information like static_url, login_url, etc.
@@ -79,7 +79,7 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
 - `manage.py`
 - `README.md`
 
-### Installation
+## Installation
 The application runs on the default port 8000. No additional Python package is necessary.
 
 1. Make and run migrations:
@@ -91,9 +91,9 @@ The application runs on the default port 8000. No additional Python package is n
 3. Run the server:
     `python manage.py runserver`
 
-### Additional information
+## Additional information
 
-#### Web application functionalities
+### Web application functionalities
 A list of the main functionalities of this web application:
 - user registration and login
 - creation and modification of scout activity sheets
@@ -106,7 +106,7 @@ A list of the main functionalities of this web application:
 - possibility to save activity sheets in a “favourites” section
 - suggested activities functionality (similar activities)
 
-#### Technology used
+### Technology used
 - Python
 - Django
 - JavaScript
@@ -114,12 +114,12 @@ A list of the main functionalities of this web application:
 - CSS
 - Bootstrap 5.3
 
-#### Future developments
+### Future developments
 - limit user registration to only scout leaders to improve the quality of the content created
 - create a functionality: download the activity sheets in PDF by clicking a button
 - add further tags if necessary
 
-#### Info and Contacts
+### Info and Contacts
 Project created by **Carlo Feniello** in the year 2023 for the **CS50's Web Programming with Python and JavaScript** course of **Harvard University**.
 
 - [official page of the course](https://cs50.harvard.edu/web/2020/ "CS50's Web Programming with Python and JavaScript")
