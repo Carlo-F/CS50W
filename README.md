@@ -43,32 +43,32 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
 - `scout/`
     - `migrations/`
     - `static/`
-    - `scout/`
-        - `images/` images used in the `README.md` file
-        - `custom.js` script to handle front end events (like button, searchbar, etc.)
-        - `styles.css` custom CSS style
+        - `scout/`
+            - `images/` images used in the `README.md` file
+            - `custom.js` script to handle front end events (like button, searchbar, etc.)
+            - `styles.css` custom CSS style
     - `templates/`
         - `scout/`
-        - `activity-card-small.html` compact card layout for a single activity
-        - `activity-card.html` standard card layout for a single activity
-        - `activity.html` single activity page
-        - `category.html` category page (scout age range)
-        - `edit_activity.html` edit activity page
-        - `favourites.html` favourites page
-        - `index.html` homepage
-        - `latest.html` latest page
-        - `layout.html` general app layout
-        - `login.html` user login page
-        - `my_activities.html` user's activities page
-        - `navbar.html` navbar template
-        - `new_activity.html` new activity creation page
-        - `popular.html` popular page
-        - `register.html` user register page
-        - `searchbar.html` searchbar template
-        - `sidebar.html` sidebar template
-        - `sub_header.html` tags menu template (position: sub header)
-        - `tag.html` single tag page
-        - `tags.html` all tags page
+            - `activity-card-small.html` compact card layout for a single activity
+            - `activity-card.html` standard card layout for a single activity
+            - `activity.html` single activity page
+            - `category.html` category page (scout age range)
+            - `edit_activity.html` edit activity page
+            - `favourites.html` favourites page
+            - `index.html` homepage
+            - `latest.html` latest page
+            - `layout.html` general app layout
+            - `login.html` user login page
+            - `my_activities.html` user's activities page
+            - `navbar.html` navbar template
+            - `new_activity.html` new activity creation page
+            - `popular.html` popular page
+            - `register.html` user register page
+            - `searchbar.html` searchbar template
+            - `sidebar.html` sidebar template
+            - `sub_header.html` tags menu template (position: sub header)
+            - `tag.html` single tag page
+            - `tags.html` all tags page
     - `admin.py` models admin registration file
     - `apps.py` application configuration file
     - `models.py` models classes definition (User, EducationalGoal, Activity, Like)
