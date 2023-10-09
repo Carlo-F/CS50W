@@ -44,7 +44,6 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
     - `migrations/`
     - `static/`
         - `scout/`
-            - `images/` images used in the `README.md` file
             - `custom.js` script to handle front end events (like button, searchbar, etc.)
             - `styles.css` custom CSS style
     - `templates/`
