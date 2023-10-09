@@ -35,47 +35,47 @@ Two further examples of increased complexity are the **complexity of an activity
 In this project the entity model for the activity sheet (_Activity_) requires more information than for the creation of a post in the Network project and even more information than in a product sheet in the Commerce project. This means more fields to manage both in the model, and in the database, and in the frontend form of the application, further increasing the complexity in general. Furthermore, on the single activity page, at the bottom, **suggested activities** may appear. These are activities that have the same characteristics as the activity currently being viewed and that could be of interest to the user.
 
 ### Code structure and file contents
-- `capstone/` capstone project's folder. 
-    - `asgi.py`
-    - `settings.py` added some configuration information like static_url, login_url, etc.
-    - `urls.py` the urls of the web application: administration url and all the urls contained in `scout/urls.py`
-    - `wsgi.py`
+- `capstone/` capstone project's folder.
+    - `asgi.py`
+    - `settings.py` added some configuration information like static_url, login_url, etc.
+    - `urls.py` the urls of the web application: administration url and all the urls contained in `scout/urls.py`
+    - `wsgi.py`
 - `scout/`
-    - `migrations/`
-    - `static/`
-        - `scout/`
-            - `images/` images used in the `README.md` file
-            - `custom.js` script to handle front end events (like button, searchbar, etc.)
-            - `styles.css` custom CSS style
-    - `templates/`
-        - `scout/`
-            - `activity-card-small.html` compact card layout for a single activity
-            - `activity-card.html` standard card layout for a single activity
-            - `activity.html` single activity page
-            - `category.html` category page (scout age range)
-            - `edit_activity.html` edit activity page
-            - `favourites.html` favourites page
-            - `index.html` homepage
-            - `latest.html` latest page
-            - `layout.html` general app layout
-            - `login.html` user login page
-            - `my_activities.html` user's activities page
-            - `navbar.html` navbar template
-            - `new_activity.html` new activity creation page
-            - `popular.html` popular page
-            - `register.html` user register page
-            - `searchbar.html` searchbar template
-            - `sidebar.html` sidebar template
-            - `sub_header.html` tags menu template (position: sub header)
-            - `tag.html` single tag page
-            - `tags.html` all tags page
-    - `admin.py` models admin registration file
-    - `apps.py` application configuration file
-    - `models.py` models classes definition (User, EducationalGoal, Activity, Like)
-    - `tests.py` 
-    - `urls.py` default URL configuration file
-    - `utils.py` application's utility (containing a function that formats activities before sending them to the view)
-    - `views.py` default views configuration file
+    - `migrations/`
+    - `static/`
+    - `scout/`
+        - `images/` images used in the `README.md` file
+        - `custom.js` script to handle front end events (like button, searchbar, etc.)
+        - `styles.css` custom CSS style
+    - `templates/`
+        - `scout/`
+        - `activity-card-small.html` compact card layout for a single activity
+        - `activity-card.html` standard card layout for a single activity
+        - `activity.html` single activity page
+        - `category.html` category page (scout age range)
+        - `edit_activity.html` edit activity page
+        - `favourites.html` favourites page
+        - `index.html` homepage
+        - `latest.html` latest page
+        - `layout.html` general app layout
+        - `login.html` user login page
+        - `my_activities.html` user's activities page
+        - `navbar.html` navbar template
+        - `new_activity.html` new activity creation page
+        - `popular.html` popular page
+        - `register.html` user register page
+        - `searchbar.html` searchbar template
+        - `sidebar.html` sidebar template
+        - `sub_header.html` tags menu template (position: sub header)
+        - `tag.html` single tag page
+        - `tags.html` all tags page
+    - `admin.py` models admin registration file
+    - `apps.py` application configuration file
+    - `models.py` models classes definition (User, EducationalGoal, Activity, Like)
+    - `tests.py` 
+    - `urls.py` default URL configuration file
+    - `utils.py` application's utility (containing a function that formats activities before sending them to the view)
+    - `views.py` default views configuration file
 - `db.sqlite3`
 - `manage.py`
 - `README.md`
@@ -84,12 +84,13 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
 The application runs on the default port 8000. No additional Python package is necessary.
 
 1. Make and apply migrations:
-    `python manage.py makemigrations` followed by 
-    `python manage.py migrate`
+    `python manage.py makemigrations`
+    followed by 
+    `python manage.py migrate`
 2. Create the superuser to log in as an admin:
-    `python manage.py createsuperuser`
+    `python manage.py createsuperuser`
 3. Run the server:
-    `python manage.py runserver`
+    `python manage.py runserver`
 
 ### Additional information
 
@@ -98,11 +99,11 @@ List of the main functionalities of the project:
 - user registration and login
 - creation and modification of scout activity sheets
 - activity sheets search with various possibilities:
-    - search by age range
-    - search by title (real time text search)
-    - search by tag
-    - search by popularity
-    - search from the most recent to the least recent (latest)
+    - search by age range
+    - search by title (real time text search)
+    - search by tag
+    - search by popularity
+    - search from the most recent to the least recent (latest)
 - possibility to save activity sheets in a “favourites” section
 - suggested activities function (similar activities)
 
