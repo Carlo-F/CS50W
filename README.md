@@ -18,97 +18,95 @@ The **LET'S SCOUT!** project was inspired by the need of the Italian Scout Assoc
 
 ### Distinctiveness and Complexity
 
-#### Come questo progetto si distingue dagli altri del corso: distinctiveness
-Questo progetto si distingue dagli altri sviluppati durante il corso in quanto non è un e-commerce, ne un social network, ne nient'altro di simile gia' fatto. E' piuttosto una piattaforma di tipo _knowledge-sharing_, in cui gli utenti can create, share, organize, access and store le specifiche informazioni di cui hanno bisogno, sia loro che altri utenti come loro. **LET'S SCOUT!** e' pertanto una piattaforma web di creazione, condivisione e ricerca di una specifica tipologia di informazione, per rispondere ad una specifica esigenza informativa di conoscenza degli educatori scout.
+#### How this project differs from the others in the course: distinctiveness
+This project differs from the others developed during the course as it is not an e-commerce, nor a social network, or anything similar to what was done previously. Rather it is a _knowledge-sharing_ platform, where users can create, share organise, access and store the specific information they need, both for themselves and other users. **LET'S SCOUT!** is therefore a web platform for creating, sharing and searching for a specific type of information, responding to a specific informational need of scout leaders.
 
-#### In cosa questo progetto e' piu complesso degli altri del corso: complexity
-Per aumentare la complessita' di questo progetto rispetto agli altri progetti portati a termine durante il corso, ho ripreso alcune funzionalita' gia' presenti negli altri progetti, e ho proceduto quindi ad arricchirle, espanderle e a renderle piu' complesse. Ad esempio, c'e' maggiore complessita' nella funzionalita' di **ricerca delle informazioni**. 
+#### How this project is more complex than the others in the course: complexity
+To increase the complexity of this project compared to the other projects completed during the course, I took some of the functionalities already present in other projects, and I enriched them by expanding them and making them more complex. For example, the **information search** function is more complex.
 
-Durante il corso le informazioni potevano essere ricercate sostanzialmente in due modi: **consultando delle pagine-elenco** come "latest", "following", "categories" (riferimento a progetti Commerce e Network) oppure con una **ricerca semplificata** con parametro in query string (riferimento a progetto Wiki).
+During the course the information could essentially be searched for in one of two ways: **Consulting the list page** such as “latest”, “following”, “categories” (with reference to the Commerce and Network projects) or with a **simplified search** with query string parameters (with reference to the Wiki project).
 
-In questo progetto ho voluto implementare queste due funzionalita' di ricerca ma le ho anche rese piu' complesse: ho scelto infatti di implementare una nuova funzionalita' di ricerca testuale che restituisce risultati in tempo reale durante la digitazione dell'utente tramite interrogazione di API creata ad hoc (tramite la searchbar posta in alto in ogni pagina).
+In this project I used these two search functions but I made them more complex: infact I chose to implement a text search function that gives results in real time as the used types by using a tailor-made interrogation API (through the search bar at the top of every page).
 
-La ricerca per pagine-elenco e' anche questa piu' complessa: ho aggiunto una nuova funzionalita' di ricerca, **la ricerca per tags**. I tag sono essenzialmente delle caratteristiche predefinite (quindi gia' fissate in origine) che l'utente puo' o meno attribuire alle attivita' in fase di creazione. La ricerca per etichette aggiunge al progetto la pagina **Tags** con elenco di tutti i tag, e la pagina del singolo **Tag** dove sono elencate tutte le attivita' che possiedono quella specifica caratteristica.
+The list page search is also more complex: I added a new search function, **the tags search**. The tags are essentially predefined characteristics (so already set at origin) that the user can choose to attribute to the activity when creating it. The tags search adds the **Tags** page to the project with a list of all tags, and the single **Tag** page where all the activities with that specific characteristic are listed.
 
-Due ulteriori esempi della maggior complessita' riguardano la **complessita' di una scheda attivita'** e la funzionalita' di **attivita' suggerite** (_similar activities_).
+Two further examples of increased complexity are the **complexity of an activity sheet** and the **suggested activities** function (_similar activities_).
 
-In questo progetto, infatti, il modello dell'entita' per la scheda attivita' (_Activity_) richiede piu' informazioni rispetto alla creazione di un post nel progetto Network e anche piu' informazioni di una scheda prodotto del progetto Commerce. Questo ha implicato piu' campi da gestire sia nel modello, sia nel database, sia nel form nel frontend dell'applicativo aumentando ulteriormente la complessita' generale. Inoltre, nella pagina della singola attivita', in basso, possono comparire delle **attivita' suggerite**. Sono attivita' che condividono delle caratteristiche con l'attivita' attualmente visualizzata e che potrebbero quindi interessare all'utente.
+In this project the entity model for the activity sheet (_Activity_) requires more information than for the creation of a post in the Network project and even more information than in a product sheet in the Commerce project. This means more fields to manage both in the model, and in the database, and in the frontend form of the application, further increasing the complexity in general. Furthermore, on the single activity page, at the bottom, **suggested activities** may appear. These are activities that have the same characteristics as the activity currently being viewed and that could be of interest to the user.
 
-### Struttura del codice e contenuto dei file
+### Code structure and file contents
 - `capstone/` capstone project's folder. 
-    - `asgi.py`
-    - `settings.py` added some configuration informations like static_url, login_url, etc.
-    - `urls.py` the urls of the web application: administration url and all the urls contained in `scout/urls.py`
-    - `wsgi.py`
+    - `asgi.py`
+    - `settings.py` added some configuration information like static_url, login_url, etc.
+    - `urls.py` the urls of the web application: administration url and all the urls contained in `scout/urls.py`
+    - `wsgi.py`
 - `scout/`
-    - `migrations/`
-    - `static/`
-        - `scout/`
-            - `images/` images used in the `README.md` file
-            - `custom.js` script to handle front end events (like button, searchbar, etc.)
-            - `styles.css` custom CSS style
-    - `templates/`
-        - `scout/`
-            - `activity-card-small.html` compact card layout for a single activity
-            - `activity-card.html` standard card layout for a single activity
-            - `activity.html` single activity page
-            - `category.html` category page (scout age range)
-            - `edit_activity.html` edit activity page
-            - `favourites.html` favourites page
-            - `index.html` homepage
-            - `latest.html` latest page
-            - `layout.html` general app layout
-            - `login.html` user login page
-            - `my_activities.html` user's activities page
-            - `navbar.html` navbar template
-            - `new_activity.html` new activity creation page
-            - `popular.html` popular page
-            - `register.html` user register page
-            - `searchbar.html` searchbar template
-            - `sidebar.html` sidebar template
-            - `sub_header.html` tags menu template (position: sub header)
-            - `tag.html` single tag page
-            - `tags.html` all tags page
-    - `admin.py` models admin registration file
-    - `apps.py` application configuration file
-    - `models.py` models classes definition (User, EducationalGoal, Activity, Like)
-    - `tests.py` 
-    - `urls.py` default URL configuration file
-    - `utils.py` application's utility (containing a function that formats activities before sending them to the view)
-    - `views.py` default views configuration file
+    - `migrations/`
+    - `static/`
+        - `scout/`
+            - `images/` images used in the `README.md` file
+            - `custom.js` script to handle front end events (like button, searchbar, etc.)
+            - `styles.css` custom CSS style
+    - `templates/`
+        - `scout/`
+            - `activity-card-small.html` compact card layout for a single activity
+            - `activity-card.html` standard card layout for a single activity
+            - `activity.html` single activity page
+            - `category.html` category page (scout age range)
+            - `edit_activity.html` edit activity page
+            - `favourites.html` favourites page
+            - `index.html` homepage
+            - `latest.html` latest page
+            - `layout.html` general app layout
+            - `login.html` user login page
+            - `my_activities.html` user's activities page
+            - `navbar.html` navbar template
+            - `new_activity.html` new activity creation page
+            - `popular.html` popular page
+            - `register.html` user register page
+            - `searchbar.html` searchbar template
+            - `sidebar.html` sidebar template
+            - `sub_header.html` tags menu template (position: sub header)
+            - `tag.html` single tag page
+            - `tags.html` all tags page
+    - `admin.py` models admin registration file
+    - `apps.py` application configuration file
+    - `models.py` models classes definition (User, EducationalGoal, Activity, Like)
+    - `tests.py` 
+    - `urls.py` default URL configuration file
+    - `utils.py` application's utility (containing a function that formats activities before sending them to the view)
+    - `views.py` default views configuration file
 - `db.sqlite3`
 - `manage.py`
 - `README.md`
 
-### Installazione
-L'applicazione runs sulla porta di default 8000. Non e' necessario installare alcun pacchetto di Python aggiuntivo.
+### Installation
+The application runs on the default port 8000. No additional Python package is necessary.
 
 1. Make and apply migrations:
-    `python manage.py makemigrations` seguito da 
-    `python manage.py migrate`
+    `python manage.py makemigrations` followed by 
+    `python manage.py migrate`
 2. Create the superuser to log in as an admin:
-    `python manage.py createsuperuser`
+    `python manage.py createsuperuser`
 3. Run the server:
-    `python manage.py runserver`
+    `python manage.py runserver`
 
-### Informazioni addizionali
+### Additional information
 
-#### Funzionalità dell'applicazione web
-Elenco delle principali funzionalita' del progetto:
+#### Web application functionality
+List of the main functionalities of the project:
+- user registration and login
+- creation and modification of scout activity sheets
+- activity sheets search with various possibilities:
+    - search by age range
+    - search by title (real time text search)
+    - search by tag
+    - search by popularity
+    - search from the most recent to the least recent (latest)
+- possibility to save activity sheets in a “favourites” section
+- suggested activities function (similar activities)
 
-- registrazione e login utente
-- creazione e modifica di schede attivita' scout
-- ricerca di schede attivita' con differenti possibilita':
-    - ricerca per age range
-    - ricerca per titolo (ricerca testuale in tempo reale)
-    - ricerca per tag
-    - ricerca per popolarita'
-    - ricerca dal piu' recente al meno recente (latest)
-- possibilita' di salvare le schede attivita' in una sezione "favoriti"
-- funzionalita' di suggerimento attivita' (similar activities)
-
-#### Tecnologie utilizzate
-
+#### Technology used
 - Python
 - Django
 - JavaScript
@@ -116,16 +114,15 @@ Elenco delle principali funzionalita' del progetto:
 - CSS
 - Bootstrap 5.3
 
-#### Sviluppi futuri
+#### Future developments
+- limit user registration to only scout leaders
+- option to download the activity sheets in PDF
+- add further tags if necessary
 
-- limitare la registrazione degli utenti ai soli educatori scout
-- poter scaricare in PDF la scheda di un'attivita'
-- aggiungere ulteriori tag se necessario
+#### Info and Contacts
+Project created by **Carlo Feniello** in the year 2023 for the **CS50's Web Programming with Python and JavaScript** course of **Harvard University**.
 
-#### Info e Contatti
-Progetto realizzato da **Carlo Feniello** nell'anno 2023 per il corso **CS50's Web Programming with Python and JavaScript** rilasciato da **Harward University**.
-
-- [pagina ufficiale del corso](https://cs50.harvard.edu/web/2020/ "CS50's Web Programming with Python and JavaScript")
-- [Carlo Feniello, sito personale](https://carlof.it "carlof.it")
-- [Carlo Feniello, profilo GitHub](https://github.com/Carlo-F "Carlo-F")
+- [official page of the course](https://cs50.harvard.edu/web/2020/ "CS50's Web Programming with Python and JavaScript")
+- [Carlo Feniello, personal website](https://carlof.it "carlof.it")
+- [Carlo Feniello, GitHub profile](https://github.com/Carlo-F "Carlo-F")
 - [Carlo Feniello, Email](mailto:info@carlof.it "info@carlof.it")
