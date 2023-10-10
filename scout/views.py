@@ -19,7 +19,7 @@ class NewActivityForm(forms.Form):
     activity_age_range = forms.ChoiceField(choices=Activity.AGE_RANGES,label="age range", widget=forms.Select(attrs={"class":"form-control mb-4"}))
     activity_location = forms.ChoiceField(choices=Activity.LOCATIONS,label="location", widget=forms.Select(attrs={"class":"form-control mb-4"}))
     activity_educational_goals = forms.ChoiceField(choices=EducationalGoal.EDUCATIONAL_GOALS,label="educational goal", widget=forms.Select(attrs={"class":"form-control mb-4"}))
-    activity_duration = forms.IntegerField(min_value=1, required=True, label="duration",widget=forms.NumberInput(attrs={"class": "form-control mb-4"}))
+    activity_duration = forms.IntegerField(min_value=1, required=True, label="duration (in minutes)",widget=forms.NumberInput(attrs={"class": "form-control mb-4"}))
     activity_required_materials = forms.CharField(label="required materials", required=False, widget=forms.TextInput(attrs={"class": "form-control mb-4"}))
     activity_method = forms.CharField(widget=forms.Textarea(attrs={"rows":"5", "class": "form-control mb-4"}))
     activity_game_mode = forms.ChoiceField(choices=Activity.GAME_MODES,label="game mode", widget=forms.Select(attrs={"class":"form-control mb-4"}))
