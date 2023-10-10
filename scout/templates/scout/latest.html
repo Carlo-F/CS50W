@@ -5,9 +5,13 @@
     <div class="my-3 p-3 bg-light rounded shadow-sm">
       <h2 class="border-bottom pb-2 mb-0">Latest activities</h2>
       <div class="container">
-        {% for activity in latest_activities %}
-          {% include "scout/activity-card-small.html" %}
-        {% endfor %}
+        {% if latest_activities %}
+          {% for activity in latest_activities %}
+            {% include "scout/activity-card-small.html" %}
+          {% endfor %}
+        {% else %}
+          <p class="p-2">Nothing to show yet.</p>
+        {% endif %}
       </div>
     </div>
     {% if latest_activities.has_other_pages %}
