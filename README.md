@@ -41,7 +41,6 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
     - `urls.py` the urls of the web application: administration url and all the urls contained in `scout/urls.py`
     - `wsgi.py`
 - `scout/`
-    - `migrations/`
     - `static/`
         - `scout/`
             - `custom.js` script to handle front end events (like button, searchbar, etc.)
@@ -83,10 +82,10 @@ In this project the entity model for the activity sheet (_Activity_) requires mo
 The application runs on the default port 8000. No additional Python package is necessary.
 
 1. Make and run migrations:
-    `python manage.py makemigrations`
+    `python manage.py makemigrations scout`
     followed by 
     `python manage.py migrate`
-2. Create the superuser to log in as an admin:
+2. (optional) Create the superuser to log in as admin:
     `python manage.py createsuperuser`
 3. Run the server:
     `python manage.py runserver`
